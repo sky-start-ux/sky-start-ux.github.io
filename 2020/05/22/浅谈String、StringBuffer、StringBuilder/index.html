@@ -16,7 +16,7 @@
 <meta property="og:description" content="String类1、String类的特性 String类是final修饰的。不可以被继承,对象都是只读的，所以多线程并发访问也不会有任何问题，由于不可变，用来存储数据也是极为的安全。 String类的底层是基于char数组的  1.1、String字符串的创建String字符串的创建方式通常有两种方式，一种是直接赋值，String str &#x3D; “a”;一种是通过创建对象赋值，String str &#x3D;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-22T07:29:30.000Z">
-<meta property="article:modified_time" content="2020-05-22T11:01:39.805Z">
+<meta property="article:modified_time" content="2020-05-22T11:22:01.702Z">
 <meta property="article:author" content="sky">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -175,6 +175,8 @@
 </ul>
 <h3 id="1-1、String字符串的创建"><a href="#1-1、String字符串的创建" class="headerlink" title="1.1、String字符串的创建"></a><strong>1.1、String字符串的创建</strong></h3><p>String字符串的创建方式通常有两种方式，一种是直接赋值，String str = “a”;一种是通过创建对象赋值，String str = new String(“a”)。这两种看似都是创建了一个字符串对象，但在内存中确是天差地别。再了解这个之间，首先我们需要了解字符串常量池。</p>
 <p>String类是我们平常项目中使用频率最高的一种对象类型，jvm为了提高性能和减少内存开销，避免字符串的重复创建，其维护了一块特殊的内存空间，即字符串池，当需要使用字符串时，先去字符串池中查看该字符串是否已经存在，如果存在，则可以直接使用，如果不存在，初始化，并将该字符串放入字符串常量池中。</p>
+<a id="more"></a>
+
 <h4 id="1-1-1、使用String直接赋值"><a href="#1-1-1、使用String直接赋值" class="headerlink" title="1.1.1、使用String直接赋值"></a>1.1.1、使用String直接赋值</h4><p>String str = ‘a’，可能创建了一个对象，也可能是不创建对象。如果’a’在字符串常量池中不存在，会在java字符串常量池中创建一个String对象(‘a’)，然后str指向这个内存地址，之后，无论使用这种方式创建多少个值为‘a’的字符串对象，始终只有一个内存地址被分配。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="string">'a'</span>;</span><br><span class="line">String str1 = <span class="string">'a'</span>;</span><br><span class="line">System.out.println(str == str1); <span class="comment">//true;==判断的是对象的内存地址</span></span><br></pre></td></tr></table></figure>
 
@@ -209,7 +211,7 @@
 <li><p>StringBuffer和StringBuilder最大的不同在于StringBuilder的方法不是线程安全的，但是相比StringBuffer，它的运行速度是最快的。</p>
 </li>
 </ul>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
       
 
       
