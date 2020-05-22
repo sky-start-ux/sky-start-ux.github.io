@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020/4 | My Blogs</title>
+  <title>浅谈String、StringBuffer、StringBuilder | My Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="My Blogs">
-<meta property="og:url" content="http://yoursite.com/archives/2020/04/index.html">
+  <meta name="description" content="String类1、String类的特性 String类是final修饰的。不可以被继承,对象都是只读的，所以多线程并发访问也不会有任何问题，由于不可变，用来存储数据也是极为的安全。 String类的底层是基于char数组的  1.1、String字符串的创建String字符串的创建方式通常有两种方式，一种是直接赋值，String str &#x3D; “a”;一种是通过创建对象赋值，String str &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈String、StringBuffer、StringBuilder">
+<meta property="og:url" content="http://yoursite.com/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/index.html">
 <meta property="og:site_name" content="My Blogs">
+<meta property="og:description" content="String类1、String类的特性 String类是final修饰的。不可以被继承,对象都是只读的，所以多线程并发访问也不会有任何问题，由于不可变，用来存储数据也是极为的安全。 String类的底层是基于char数组的  1.1、String字符串的创建String字符串的创建方式通常有两种方式，一种是直接赋值，String str &#x3D; “a”;一种是通过创建对象赋值，String str &#x3D;">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-22T07:29:30.000Z">
+<meta property="article:modified_time" content="2020-05-22T10:52:24.027Z">
 <meta property="article:author" content="sky">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="My Blogs" type="application/atom+xml">
@@ -144,49 +149,206 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-浅谈String、StringBuffer、StringBuilder" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/01/hello-world/" class="archive-article-date">
-  	<time datetime="2020-04-01T11:00:55.495Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-01</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/01/hello-world/">Hello World</a>
+    <h1 class="article-title" itemprop="name">
+      浅谈String、StringBuffer、StringBuilder
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/" class="archive-article-date">
+  	<time datetime="2020-05-22T07:29:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="String类"><a href="#String类" class="headerlink" title="String类"></a><strong>String类</strong></h1><h2 id="1、String类的特性"><a href="#1、String类的特性" class="headerlink" title="1、String类的特性"></a><strong>1、String类的特性</strong></h2><ul>
+<li>String类是final修饰的。不可以被继承,对象都是只读的，所以多线程并发访问也不会有任何问题，由于不可变，用来存储数据也是极为的安全。</li>
+<li>String类的底层是基于char数组的</li>
+</ul>
+<h3 id="1-1、String字符串的创建"><a href="#1-1、String字符串的创建" class="headerlink" title="1.1、String字符串的创建"></a><strong>1.1、String字符串的创建</strong></h3><p>String字符串的创建方式通常有两种方式，一种是直接赋值，String str = “a”;一种是通过创建对象赋值，String str = new String(“a”)。这两种看似都是创建了一个字符串对象，但在内存中确是天差地别。再了解这个之间，首先我们需要了解字符串常量池。</p>
+<p>String类是我们平常项目中使用频率最高的一种对象类型，jvm为了提高性能和减少内存开销，避免字符串的重复创建，其维护了一块特殊的内存空间，即字符串池，当需要使用字符串时，先去字符串池中查看该字符串是否已经存在，如果存在，则可以直接使用，如果不存在，初始化，并将该字符串放入字符串常量池中。</p>
+<h4 id="1-1-1、使用String直接赋值"><a href="#1-1-1、使用String直接赋值" class="headerlink" title="1.1.1、使用String直接赋值"></a><strong>1.1.1、使用String直接赋值</strong></h4><p>String str = ‘a’，可能创建了一个对象，也可能是不创建对象。如果’a’在字符串常量池中不存在，会在java字符串常量池中创建一个String对象(‘a’)，然后str指向这个内存地址，之后，无论使用这种方式创建多少个值为‘a’的字符串对象，始终只有一个内存地址被分配。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="string">'a'</span>;</span><br><span class="line">String str1 = <span class="string">'a'</span>;</span><br><span class="line">System.out.println(str == str1); <span class="comment">//true;==判断的是对象的内存地址</span></span><br></pre></td></tr></table></figure>
 
+<h4 id="1-1-2、使用new-String创建字符串"><a href="#1-1-2、使用new-String创建字符串" class="headerlink" title="1.1.2、使用new String创建字符串"></a><strong>1.1.2、使用new String创建字符串</strong></h4><p>String str = ‘a’，至少会创建一个对象，也有可能创建两个对象，因为用到new关键字，所以肯定会在堆中创建一个String对象，如果字符串常量池中存在’a’，则不会再字符串常量池中创建一个String对象，如果不存在，则会在字符串常量池中创建一个对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="keyword">new</span> String(<span class="string">"a"</span>);</span><br><span class="line">String str1 = <span class="keyword">new</span> String(<span class="string">"a"</span>);</span><br><span class="line">System.out.println(str==str1);<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-1-3、使用String拼接字符串"><a href="#1-1-3、使用String拼接字符串" class="headerlink" title="1.1.3、使用String拼接字符串"></a><strong>1.1.3、使用String拼接字符串</strong></h4><p>我们通常还会使用字符串拼接，字符串拼接有分为变量拼接与已知字符串拼接</p>
+<ul>
+<li>变量拼接</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="keyword">new</span> String(<span class="string">"a"</span>);</span><br><span class="line">String str1 = str + <span class="string">"bc"</span>;</span><br><span class="line">String str2 = <span class="string">"abc"</span>;</span><br><span class="line">System.out.println(str2==str1);<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<p>如果常量池中没有’a’，’bc’这两个对象，它会在常量池中创建’a’,’bc’这两个对象，如果存在，就只会在堆上创建一个String对象。在字符串拼接的时候，由于str1在编译之前都是未知，所以此时会在堆中新建一个’abc’的对象。所以str1和str2指向的地址值是不一致的。</p>
+<ul>
+<li>已知字符串拼接</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//String str = new String("a");</span></span><br><span class="line">String str1 = <span class="string">'a'</span> + <span class="string">"bc"</span>;</span><br><span class="line">String str2 = <span class="string">"abc"</span>;</span><br><span class="line">System.out.println(str2==str1);<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<p>前面的步骤和变量拼接一样，但是在拼接字符串时，str1拼接之后还是’abc’，所以还是会指向字符串常量池中’abc’的内存地址。</p>
+<p>在实践当中，我们比较常用的是变量拼接，但是，可想而知，如果我们频繁地对String对象进行修改，会造成很大的内存开销，此时，我们就应该使用StringBuffer或者StringBuilder来代替String。</p>
+<h1 id="StringBuffer类和StringBuilder"><a href="#StringBuffer类和StringBuilder" class="headerlink" title="StringBuffer类和StringBuilder"></a><strong>StringBuffer类和StringBuilder</strong></h1><h2 id="StringBuffer对象的创建"><a href="#StringBuffer对象的创建" class="headerlink" title="StringBuffer对象的创建"></a><strong>StringBuffer对象的创建</strong></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer str1 = <span class="keyword">new</span> StringBuffer(<span class="string">"a"</span>);</span><br><span class="line">str1.append(<span class="string">"bc"</span>);</span><br><span class="line">System.out.println(str1);<span class="comment">//abc</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="StringBuilder对象的创建"><a href="#StringBuilder对象的创建" class="headerlink" title="StringBuilder对象的创建"></a><strong>StringBuilder对象的创建</strong></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder str = <span class="keyword">new</span> StringBuilder(<span class="string">"a"</span>);</span><br><span class="line">str.append(<span class="string">"bc"</span>);</span><br><span class="line">System.out.println(str);</span><br></pre></td></tr></table></figure>
+
+<p>和String类不同的是，由StringBuffer和StringBuilder创建的对象能够被多次修改，并且不产生新的未使用对象。</p>
+<p>StringBuffer是使用缓冲区的，本身也是操作字符串的，但与String类中不同的是，String类中的内容一旦声明之后就不可改变，改变的只是其内存地址的指向，而StringBuffer中的内容是可以改变的。对于StringBuffer而言，本身是一个具体的操作类，所以不能像String那样采用直接赋值的方式进行对象实例化，必须通过构造函数方法完成。</p>
+<p>而StringBuilder是一个可变的字符序列，此类提供了一个与StringBuffer兼容的API，但不保证同步，该类被设计用作StringBuffer的一个简易替换。用在字符串缓冲区被单个线程使用的情况。</p>
+<p>StringBuilder类在Java5中被提出，它与StringBuffer之间最大不同在于StringBuilder的方法不是线程安全的，不能同步访问，由于StringBuilder相较于StringBuffer有速度的优势，所以多数情况下简易使用StringBuilder类，然而在应用程序要求线程安全的情况下，则必须使用StringBuffer类。</p>
+<h1 id="String、StringBuffer、StringBuilder三者的区别"><a href="#String、StringBuffer、StringBuilder三者的区别" class="headerlink" title="String、StringBuffer、StringBuilder三者的区别"></a>String、StringBuffer、StringBuilder三者的区别</h1><ul>
+<li><p>String底层是一个final类型的字符数组，所以String的值是不可变的，每次对String进行操作都会生成新的String对象，造成内存浪费。而StringBuilder和StringBuffer都继承AbstractStringBuilder抽象类，他们的底层都是可变数组，所以在进行频繁的字符串操作时，使用StringBuffer和StringBuilder来操作字符串，就不会造成内存浪费。</p>
+</li>
+<li><p>StringBuffer和StringBuilder最大的不同在于StringBuilder的方法不是线程安全的，但是相比StringBuffer，它的运行速度是最快的。</p>
+</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/04/01/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -209,8 +371,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
