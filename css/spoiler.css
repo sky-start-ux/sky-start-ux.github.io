@@ -24,7 +24,7 @@
 
 .spoiler.collapsed .spoiler-title:before {
 	
-    content: "{% spoiler "隐藏内容的标题" %}
+    {% spoiler "隐藏内容的标题" %}
 
 隐藏文字隐藏文字隐藏文字。  
 支持 `markdown` 语法
@@ -58,11 +58,11 @@
     |-|-|
     |文字|文字|
 
-{% endspoiler %} ";
+{% endspoiler %}: "Show ";
 }
 
 .spoiler.expanded .spoiler-title:before {
-    content: "{% spoiler "隐藏内容的标题" %}
+    {% spoiler "隐藏内容的标题" %}
 
 隐藏文字隐藏文字隐藏文字。  
 支持 `markdown` 语法
@@ -96,7 +96,7 @@
     |-|-|
     |文字|文字|
 
-{% endspoiler %} ";
+{% endspoiler %}: "Hide ";
 }
 
 .spoiler .spoiler-content {
