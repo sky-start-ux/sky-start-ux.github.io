@@ -172,13 +172,13 @@
 </ul>
 <h3 id="1-1、String字符串的创建"><a href="#1-1、String字符串的创建" class="headerlink" title="1.1、String字符串的创建"></a><strong>1.1、String字符串的创建</strong></h3><p>String字符串的创建方式通常有两种方式，一种是直接赋值，String str = “a”;一种是通过创建对象赋值，String str = new String(“a”)。这两种看似都是创建了一个字符串对象，但在内存中确是天差地别。再了解这个之间，首先我们需要了解字符串常量池。</p>
 <p>String类是我们平常项目中使用频率最高的一种对象类型，jvm为了提高性能和减少内存开销，避免字符串的重复创建，其维护了一块特殊的内存空间，即字符串池，当需要使用字符串时，先去字符串池中查看该字符串是否已经存在，如果存在，则可以直接使用，如果不存在，初始化，并将该字符串放入字符串常量池中。</p>
-<h4 id="1-1-1、使用String直接赋值"><a href="#1-1-1、使用String直接赋值" class="headerlink" title="1.1.1、使用String直接赋值"></a><strong>1.1.1、使用String直接赋值</strong></h4><p>String str = ‘a’，可能创建了一个对象，也可能是不创建对象。如果’a’在字符串常量池中不存在，会在java字符串常量池中创建一个String对象(‘a’)，然后str指向这个内存地址，之后，无论使用这种方式创建多少个值为‘a’的字符串对象，始终只有一个内存地址被分配。</p>
+<h4 id="1-1-1、使用String直接赋值"><a href="#1-1-1、使用String直接赋值" class="headerlink" title="1.1.1、使用String直接赋值"></a>1.1.1、使用String直接赋值</h4><p>String str = ‘a’，可能创建了一个对象，也可能是不创建对象。如果’a’在字符串常量池中不存在，会在java字符串常量池中创建一个String对象(‘a’)，然后str指向这个内存地址，之后，无论使用这种方式创建多少个值为‘a’的字符串对象，始终只有一个内存地址被分配。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="string">'a'</span>;</span><br><span class="line">String str1 = <span class="string">'a'</span>;</span><br><span class="line">System.out.println(str == str1); <span class="comment">//true;==判断的是对象的内存地址</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="1-1-2、使用new-String创建字符串"><a href="#1-1-2、使用new-String创建字符串" class="headerlink" title="1.1.2、使用new String创建字符串"></a><strong>1.1.2、使用new String创建字符串</strong></h4><p>String str = ‘a’，至少会创建一个对象，也有可能创建两个对象，因为用到new关键字，所以肯定会在堆中创建一个String对象，如果字符串常量池中存在’a’，则不会再字符串常量池中创建一个String对象，如果不存在，则会在字符串常量池中创建一个对象。</p>
+<h4 id="1-1-2、使用new-String创建字符串"><a href="#1-1-2、使用new-String创建字符串" class="headerlink" title="1.1.2、使用new String创建字符串"></a>1.1.2、使用new String创建字符串</h4><p>String str = ‘a’，至少会创建一个对象，也有可能创建两个对象，因为用到new关键字，所以肯定会在堆中创建一个String对象，如果字符串常量池中存在’a’，则不会再字符串常量池中创建一个String对象，如果不存在，则会在字符串常量池中创建一个对象。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="keyword">new</span> String(<span class="string">"a"</span>);</span><br><span class="line">String str1 = <span class="keyword">new</span> String(<span class="string">"a"</span>);</span><br><span class="line">System.out.println(str==str1);<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="1-1-3、使用String拼接字符串"><a href="#1-1-3、使用String拼接字符串" class="headerlink" title="1.1.3、使用String拼接字符串"></a><strong>1.1.3、使用String拼接字符串</strong></h4><p>我们通常还会使用字符串拼接，字符串拼接有分为变量拼接与已知字符串拼接</p>
+<h4 id="1-1-3、使用String拼接字符串"><a href="#1-1-3、使用String拼接字符串" class="headerlink" title="1.1.3、使用String拼接字符串"></a>1.1.3、使用String拼接字符串</h4><p>我们通常还会使用字符串拼接，字符串拼接有分为变量拼接与已知字符串拼接</p>
 <ul>
 <li>变量拼接</li>
 </ul>
