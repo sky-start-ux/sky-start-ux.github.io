@@ -1,0 +1,129 @@
+.spoiler {
+    margin: 5px 0;
+    padding: 0 15px;
+    border: 1px solid #E5E5E5;
+    position: relative;
+    clear: both;
+    border-radius: 3px;
+}
+
+.spoiler .spoiler-title {
+    background: #E5E5E5;
+    margin: 0 -15px;
+    padding: 5px 15px;
+    color: #353535;
+    font-weight: bold;
+    font-size: 13px;
+    display: block;
+    cursor: pointer;
+}
+
+.spoiler .spoiler-title:before {
+    font-weight: bold;
+}
+
+.spoiler.collapsed .spoiler-title:before {
+	
+    content: "{% spoiler "隐藏内容的标题" %}
+
+隐藏文字隐藏文字隐藏文字。  
+支持 `markdown` 语法
+
+- 支持 **粗体**、*斜体*
+- 支持列表
+- 支持md插入图片语法：![1](hexo-pictures/hexo-6_1.png)
+- 支持html插入图片语法：<img src = "hexo-pictures/hexo-6_1.png">
+- 支持行内代码 `markdown`
+- 支持代码块
+  
+    ```cpp
+    #include <initializer_list>
+    #include <iostream>
+    struct A {
+        A() { std::cout << "1"; }
+        A(int) { std::cout << "2"; }
+        A(std::initializer_list<int>) { std::cout << "3"; }
+    };
+    int main(int argc, char *argv[]) {
+        A a1;
+        A a2{};
+        A a3{ 1 };
+        A a4{ 1, 2 };
+    }
+    ```// 此处加点文字，防止排版错误：因为这是代码块内的代码。使用时可删除
+
+- 支持表格
+
+    |文字|文字|
+    |-|-|
+    |文字|文字|
+
+{% endspoiler %} ";
+}
+
+.spoiler.expanded .spoiler-title:before {
+    content: "{% spoiler "隐藏内容的标题" %}
+
+隐藏文字隐藏文字隐藏文字。  
+支持 `markdown` 语法
+
+- 支持 **粗体**、*斜体*
+- 支持列表
+- 支持md插入图片语法：![1](hexo-pictures/hexo-6_1.png)
+- 支持html插入图片语法：<img src = "hexo-pictures/hexo-6_1.png">
+- 支持行内代码 `markdown`
+- 支持代码块
+  
+    ```cpp
+    #include <initializer_list>
+    #include <iostream>
+    struct A {
+        A() { std::cout << "1"; }
+        A(int) { std::cout << "2"; }
+        A(std::initializer_list<int>) { std::cout << "3"; }
+    };
+    int main(int argc, char *argv[]) {
+        A a1;
+        A a2{};
+        A a3{ 1 };
+        A a4{ 1, 2 };
+    }
+    ```// 此处加点文字，防止排版错误：因为这是代码块内的代码。使用时可删除
+
+- 支持表格
+
+    |文字|文字|
+    |-|-|
+    |文字|文字|
+
+{% endspoiler %} ";
+}
+
+.spoiler .spoiler-content {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    -moz-transition-duration: 0.3s;
+    -webkit-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -moz-transition-timing-function: ease-in-out;
+    -webkit-transition-timing-function: ease-in-out;
+    -o-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out;
+}
+
+.spoiler.collapsed .spoiler-content {
+    overflow: hidden;
+    max-height: 0;
+}
+
+.spoiler.expanded .spoiler-content {
+    max-height: 3000px;
+    overflow: hidden;
+}
+
+.spoiler .spoiler-content p:first-child {
+    margin-top: 0 !important;
+}
