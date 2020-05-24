@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020 | My Blogs</title>
+  <title>浅谈List集合 | My Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="My Blogs">
-<meta property="og:url" content="http://yoursite.com/archives/2020/index.html">
+  <meta name="description" content="Java集合作为一名开发者，java集合类是我们在开发中运用最多的类，相比较于数组来说，集合类的长度可变，更适合于开发。Java集合就像是一个容器，可以存储任何类型的数据，也可以结合范型来存储类型对象。在程序运行时，Java集合可以动态得进行扩展，随着元素的增加而扩大，在Java中，集合类型通常存于java.util包中。 Java集合主要由两个体系构成，分别是Collection和Map体系，其">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈List集合">
+<meta property="og:url" content="http://yoursite.com/2020/05/23/%E6%B5%85%E8%B0%88List%E9%9B%86%E5%90%88/index.html">
 <meta property="og:site_name" content="My Blogs">
+<meta property="og:description" content="Java集合作为一名开发者，java集合类是我们在开发中运用最多的类，相比较于数组来说，集合类的长度可变，更适合于开发。Java集合就像是一个容器，可以存储任何类型的数据，也可以结合范型来存储类型对象。在程序运行时，Java集合可以动态得进行扩展，随着元素的增加而扩大，在Java中，集合类型通常存于java.util包中。 Java集合主要由两个体系构成，分别是Collection和Map体系，其">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-23T08:28:34.000Z">
+<meta property="article:modified_time" content="2020-05-24T10:12:09.835Z">
 <meta property="article:author" content="sky丶沉默灬">
+<meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="My Blogs" type="application/atom+xml">
@@ -144,36 +149,136 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-浅谈List集合" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/23/%E6%B5%85%E8%B0%88List%E9%9B%86%E5%90%88/" class="archive-article-date">
-  	<time datetime="2020-05-23T08:28:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/23/%E6%B5%85%E8%B0%88List%E9%9B%86%E5%90%88/">浅谈List集合</a>
+    <h1 class="article-title" itemprop="name">
+      浅谈List集合
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/05/23/%E6%B5%85%E8%B0%88List%E9%9B%86%E5%90%88/" class="archive-article-date">
+  	<time datetime="2020-05-23T08:28:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a><strong>Java集合</strong></h1><p>作为一名开发者，java集合类是我们在开发中运用最多的类，相比较于数组来说，集合类的长度可变，更适合于开发。Java集合就像是一个容器，可以存储任何类型的数据，也可以结合范型来存储类型对象。在程序运行时，Java集合可以动态得进行扩展，随着元素的增加而扩大，在Java中，集合类型通常存于java.util包中。</p>
+<p>Java集合主要由两个体系构成，分别是Collection和Map体系，其中Collection和Map分别是两个体系的中的顶级接口。Collection主要有三个子接口，分别是List、Set和Queue。其中，List和Queue中的元素有序可重复，而Set中的元素无序不可重复，List中主要有ArrayList、LinkedList两个实现类，Set则有HashSet实现类，而Queue是在JDK1.5之后才有的新集合，主要有数组和链表两种形式存在，有ConcurrentLinkedQueue实现类。而Map同属于java.util包中，是集合的一部分，但与Collection是相互独立的，没有任何的关系，Map中都是以key-value的形式存在，其中key必须是唯一的，主要有HashMap、HashTable和TreeMap三个实现类。</p>
+<a id="more"></a>
+
+<h2 id="ArrayList集合"><a href="#ArrayList集合" class="headerlink" title="ArrayList集合"></a><strong>ArrayList集合</strong></h2><p>在Collection中，ArrayList集合是有序的，开发者可以对其中的每个元素的插入位置进行精确的控制，可以通过索引来访问元素，遍历元素，它有以下特点：</p>
+<ul>
+<li>容器不固定，随着容器的增加而动态扩容，阈值基本不会达到，默认初始化容量为10，每次扩容是1.5被扩容。</li>
+<li>有序的集合，插入的顺序等于输出的顺序。</li>
+<li>相比较与LinkedList来说，查找的效率更高。</li>
+<li>线程不安全。</li>
+</ul>
+<p>ArrayList部分源码展示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">transient</span> Object[] elementData; <span class="comment">// non-private to simplify nested class access</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        ensureCapacityInternal(size + <span class="number">1</span>);  <span class="comment">// Increments modCount!!</span></span><br><span class="line">        elementData[size++] = e;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> index, E element)</span> </span>&#123;</span><br><span class="line">        rangeCheckForAdd(index);</span><br><span class="line"></span><br><span class="line">        ensureCapacityInternal(size + <span class="number">1</span>);  <span class="comment">// Increments modCount!!</span></span><br><span class="line">        System.arraycopy(elementData, index, elementData, index + <span class="number">1</span>,</span><br><span class="line">                         size - index);</span><br><span class="line">        elementData[index] = element;</span><br><span class="line">        size++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureCapacityInternal</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">        ensureExplicitCapacity(calculateCapacity(elementData, minCapacity));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">calculateCapacity</span><span class="params">(Object[] elementData, <span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) &#123;</span><br><span class="line">            <span class="keyword">return</span> Math.max(DEFAULT_CAPACITY, minCapacity);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> minCapacity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureExplicitCapacity</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">        modCount++;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// overflow-conscious code</span></span><br><span class="line">        <span class="keyword">if</span> (minCapacity - elementData.length &gt; <span class="number">0</span>)</span><br><span class="line">            grow(minCapacity);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">grow</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// overflow-conscious code</span></span><br><span class="line">        <span class="keyword">int</span> oldCapacity = elementData.length;</span><br><span class="line">        <span class="keyword">int</span> newCapacity = oldCapacity + (oldCapacity &gt;&gt; <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">            newCapacity = minCapacity;</span><br><span class="line">        <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">            newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">        <span class="comment">// minCapacity is usually close to size, so this is a win:</span></span><br><span class="line">        elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过源码可以看出ArrayList的实现主要是通过一个Object的数组，用来保存所有的元素，以及一个size变量用来保存当前集合已经添加了多少个元素。在执行add方法的时候，它会先判断如果将新的元素加到列表后面，列表elementData数组的大小是否满足，如果size+1这个需求长度大于elementData这个数组的长度，就对数组进行扩容，之后在elementData对应的位置上设置匀速的值。在这个情况下，如果是在多线程的环境下用add方法操作集合，可能会发生以下问题：</p>
+<ul>
+<li>数组越界异常，ArrayIndexOutOfBoundsException</li>
+</ul>
+<p>具体逻辑如下：</p>
+<ol>
+<li>列表的大小为9，即size为9。</li>
+<li>线程A开始进入add方法，这时它获取到的size值为9，调用ensureCapacityInternal方法进行容量判断，发现需求大小为10，而elementData的大小就为10，可以容纳，于是它不再扩容，返回。</li>
+<li>在线程A进入add方法的同时，线程B也开始进入add方法，它获取到的size值也为9，发现需求大小为10，可以容纳，所以它也不再扩容，返回。</li>
+<li>线程A开始进行设置值的操作，elementData[size++] = e操作，此时的size变成10，线程B也开始进行设置值的操作，由于elementData没有进行扩容，它的下标最大值为9，于是此时就会抛出一个数组越界的异常ArrayIndexOutOfBoundsException。</li>
+</ol>
+<ul>
+<li>元素值覆盖和为空问题</li>
+</ul>
+<p>具体逻辑如下：</p>
+<ol>
+<li>列表的大小为0，即size为0。</li>
+<li>线程A开始添加一个元素，值为A，将A放在了elementData下标为0的位置上。</li>
+<li>接着线程B刚好也要开始添加一个值为B的元素，此时线程B获取到size的值依然为0，于是它将B也放在了elementData下标为0的位置上。</li>
+<li>线程A开始将size的值增加1。</li>
+<li>线程B开始将size的值增加2。</li>
+</ol>
+<p>这样当线程A,B执行完毕后，理想中的情况为size为2，elementData下标为0的位置是A,下标为1的位置是B。而实际情况却是size为2，下标为0的位置是B，下标为1的位置为null。因为size为2，添加元素时，会从下标为2的位置上开始，所以下标为1的位置始终为null。</p>
+<p>示范代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line"><span class="comment">// 线程A将1-1000添加到列表</span></span><br><span class="line"><span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">            list.add(i);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;).start();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 线程B将1001-2000添加到列表</span></span><br><span class="line"><span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1001</span>; i &lt; <span class="number">2000</span>; i++) &#123;</span><br><span class="line">            list.add(i);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;).start();</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印所有结果</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">    System.out.println(<span class="string">"第"</span> + (i + <span class="number">1</span>) + <span class="string">"个元素为："</span> + list.get(i));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果如下所示：</p>
+<p>那么我们应该如何在多线程的情况下使用ArrayList集合呢？</p>
+<ol>
+<li>最常用的方法就是通过Collections的synchronizedList方法将ArrayList转换成线程安全的容器后再使用。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;();</span></span><br><span class="line">List&lt;Integer&gt; list = Collections.synchronizedList(<span class="keyword">new</span> ArrayList&lt;Integer&gt;());</span><br></pre></td></tr></table></figure></li>
+<li>使用vector来代替ArrayList，因为vector是线程安全的。</li>
+<li>使用线程安全的CopyOnWriteArrayList代替线程不安全的ArrayList。CopyOnWriteArrayList是写时赋值，读写分离的操作，写的时候加锁，读的时候不加锁，这样可以保证线程安全的同时，而不降低效率。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CopyOnWriteArrayList&lt;Integer&gt; list = <span class="keyword">new</span> CopyOnWriteArrayList&lt;&gt;();</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="LinkedList集合"><a href="#LinkedList集合" class="headerlink" title="LinkedList集合"></a><strong>LinkedList集合</strong></h2><ol>
+<li>LinkedList是一个继承于AbstractSequentialList的双向链表。1.6以前是双向循环链表，1.7之后取消了循环，是双向链表。</li>
+<li>LinkedList实现了List接口，得到了List集合框架基础功能。</li>
+<li>LinkedList实现Deque接口，Deque是一个双向队列，也就是既可以先入先出，也可以先入后出。</li>
+<li>LinkedList实现了Cloneable接口，得到了clone()方法，可以实现克隆功能。</li>
+<li>LinkedList实现了Serializable接口，表示可以被序列化，通过序列化去传输。</li>
+<li>LinkedList的操作也不是线程安全的</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addFirst</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        linkFirst(e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addLast</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        linkLast(e);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    linkLast(e);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">linkFirst</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> Node&lt;E&gt; f = first;</span><br><span class="line">    <span class="keyword">final</span> Node&lt;E&gt; newNode = <span class="keyword">new</span> Node&lt;&gt;(<span class="keyword">null</span>, e, f);</span><br><span class="line">    first = newNode;</span><br><span class="line">    <span class="keyword">if</span> (f == <span class="keyword">null</span>)</span><br><span class="line">        last = newNode;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        f.prev = newNode;</span><br><span class="line">    size++;</span><br><span class="line">    modCount++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Links e as last element.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">linkLast</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> Node&lt;E&gt; l = last;</span><br><span class="line">    <span class="keyword">final</span> Node&lt;E&gt; newNode = <span class="keyword">new</span> Node&lt;&gt;(l, e, <span class="keyword">null</span>);</span><br><span class="line">    last = newNode;</span><br><span class="line">    <span class="keyword">if</span> (l == <span class="keyword">null</span>)</span><br><span class="line">        first = newNode;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        l.next = newNode;</span><br><span class="line">    size++;</span><br><span class="line">    modCount++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>LinkedList链表就是这样一个节点一个节点关联起来的，在链表操作中，可以指定是头插法或者是尾插法，在默认情况下，也就是调用add()方法，使用的是尾插法。在多线程的情况使用LinkedList，会抛出java.lang.NullPointerException异常。如果在多线程的情况下，可以将LinkedList替换成ConcurrentLinkedQueue，或者是Collections.synchronizedList(new LinkedList&lt;*&gt;()),避免引发异常。</p>
+<h2 id="ArrayList和LinkedList的比较"><a href="#ArrayList和LinkedList的比较" class="headerlink" title="ArrayList和LinkedList的比较"></a><strong>ArrayList和LinkedList的比较</strong></h2><ul>
+<li>相同点：</li>
+</ul>
+<ol>
+<li>都实现了List接口，得到了List集合框架基础功能。</li>
+<li>LinkedList实现了Cloneable接口，得到了clone()方法，可以实现克隆功能。</li>
+<li>LinkedList实现了Serializable接口，表示可以被序列化，通过序列化去传输。</li>
+<li>虽然ArrayList继承的是AbstractList类，而LinkedList继承的是AbstractSequentialList类，AbstractSequentialList继承的是AbstractList类，所以它们的最终都是实现Collection接口。</li>
+<li>都是线程不安全的，都是基于fail-fast机制。fail-fast机制，即快速失败机制，是java集合Collection中的一种错误检测机制。当在迭代集合的过程当中该集合在结构上发生变化的时候，就可能发生fail-fast,即抛出ConcurrentModificationException异常。fast-fail机制并不保证在不同步的情况下抛出异常，它只是尽最大的努力去抛出异常，所以这种机制一般仅用于检测bug。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; <span class="number">10</span> ; i++ ) &#123;</span><br><span class="line">            list.add(i + <span class="string">""</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Iterator&lt;String&gt; iterator = list.iterator();</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span> ;</span><br><span class="line">        <span class="keyword">while</span>(iterator.hasNext()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">3</span>) &#123;</span><br><span class="line">                list.remove(<span class="number">3</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(iterator.next());</span><br><span class="line">            i ++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<ul>
+<li>不同点</li>
+</ul>
+<ol>
+<li>ArrayList实现了RandomAccess接口，LinkedList未实现此接口。RandomAccess接口是随机访问标记接口，标记一个类，能否对其中元素进行随机访问，及快速通过下表，找到对应的元素,所以ArrayList可以支持随机元素访问。而LinkedList实现了Deque接口，ArrayList未实现此接口，所以LinkedList可以当做队列来使用。</li>
+<li>ArrayList的内部是数组实现的，而LinkedList的内部是双向链表实现的。</li>
+<li>新增、删除元素时，ArrayList需要拷贝原数组，而LinkedList只需要移动指针，所以LinkedList新增、删除元素的速度比ArrayList快。</li>
+<li>在查找元素时，ArrayList支持随机访问元素，而LinkedList只能一个一个节点去遍历。ArrayList查找元素的速度比LinkedList的速度快。</li>
+</ol>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -185,84 +290,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/05/23/%E6%B5%85%E8%B0%88List%E9%9B%86%E5%90%88/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/" class="archive-article-date">
-  	<time datetime="2020-05-22T07:29:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">浅谈String、StringBuffer、StringBuilder</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/">浅谈String、StringBuffer、StringBuilder</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/01/hello-world/" class="archive-article-date">
-  	<time datetime="2020-04-01T11:00:55.495Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/01/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -285,8 +412,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
