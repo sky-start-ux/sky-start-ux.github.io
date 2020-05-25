@@ -146,6 +146,134 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-浅谈Set集合" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/25/%E6%B5%85%E8%B0%88Set%E9%9B%86%E5%90%88/">浅谈Set集合</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/25/%E6%B5%85%E8%B0%88Set%E9%9B%86%E5%90%88/" class="archive-article-date">
+  	<time datetime="2020-05-25T07:15:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Set集合简介"><a href="#Set集合简介" class="headerlink" title="Set集合简介"></a><strong>Set集合简介</strong></h1><ul>
+<li>Set集合继承自Collection。通常不能记住元素的添加顺序，不可指定位置访问。</li>
+<li>Set集合的实现类是通过内部封装Map集合实现的。</li>
+<li>Set集合不能存储重复元素。</li>
+<li>Set集合的实现类有HashSet、TreeSet和LinkedHashSet。</li>
+</ul>
+<h1 id="HashSet类"><a href="#HashSet类" class="headerlink" title="HashSet类"></a><strong>HashSet类</strong></h1><p><img src="/img/4/jdsajdsaljdksal.png" alt="image"></p>
+<p>HashSet是Set接口经典的实现类，大多时候使用Set集合是就是使用这个实现类，内部封装了HashMap。HashSet是以键值对的形式来存储集合中的元素，因此具有很好的存取和查找性能。底层数据结构是哈希表。</p>
+<p>哈希表：也叫散列表，是根据关键码值(key value)而直接访问的数据结构，也就是说，它是通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度，这个映射函数叫做散列函数，存放记录的数组叫做散列表。</p>
+<h2 id="HashSet具有以下的特点："><a href="#HashSet具有以下的特点：" class="headerlink" title="HashSet具有以下的特点："></a>HashSet具有以下的特点：</h2><ul>
+<li>不能保证元素的排列顺序，顺序可能与添加的顺序不同。</li>
+<li>HashSet不是同步的，也就是说HashSet是线程不安全的。</li>
+<li>集合元素值可以是null。</li>
+</ul>
+<h2 id="HashSet内部存储机制："><a href="#HashSet内部存储机制：" class="headerlink" title="HashSet内部存储机制："></a>HashSet内部存储机制：</h2><p>当向HashSet集合中存入一个元素时，HashSet会调用该对象的hashCode方法得到该对象HashCode值，然后根据该对象的HashCode的值决定该对象在HashSet中的存储位置。如果两个元素通过equals方法比较true，但它们的HashCode方法返回的值不同，HashSet将会把它们存储在不同的位置，依旧可以添加成功，也就是说，HashSet集合判断两个元素的标准是两个对象通过equals方法比较相等，并且两个对象的HashCode方法返回的hash值也相等，靠元素重写HashCode方法和equals方法来判断两个元素是否相等，如果相等，则覆盖原来的元素，以此来确保元素的唯一性。</p>
+<p>没有重写HashCode和equals方法的实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name, Integer age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(Integer age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Student&#123;"</span> +</span><br><span class="line">                <span class="string">"name='"</span> + name + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", age="</span> + age +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        HashSet&lt;Student&gt; set = <span class="keyword">new</span> HashSet();</span><br><span class="line">        set.add(<span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">3</span>));</span><br><span class="line">        set.add(<span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">3</span>));</span><br><span class="line">        <span class="keyword">for</span> (Student student : set) &#123;</span><br><span class="line">            System.out.println(student);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果如下所示：</p>
+<p><img src="/img/4/ansjdsadaslda.png" alt="image"></p>
+<p>很明显，再没有重写HashCode方法和equals的时候，它是可以添加重复自定义对象元素的。如果是使用String、Integer等，它是已经重写了HashCode和equals方法的。不能添加重复元素。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">HashSet&lt;String&gt; set = <span class="keyword">new</span> HashSet();</span><br><span class="line">      set.add(<span class="string">"1"</span>);</span><br><span class="line">      set.add(<span class="string">"1"</span>);</span><br><span class="line">      <span class="keyword">for</span> (String integer : set) &#123;</span><br><span class="line">          System.out.println(integer);</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/4/sdadasdnasd.png" alt="image"></p>
+<p>重写HashCode和equals方法的实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name, Integer age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(Integer age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Student&#123;"</span> +</span><br><span class="line">                <span class="string">"name='"</span> + name + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", age="</span> + age +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> == o) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (o == <span class="keyword">null</span> || getClass() != o.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        Student student = (Student) o;</span><br><span class="line">        <span class="keyword">return</span> Objects.equals(name, student.name) &amp;&amp;</span><br><span class="line">                Objects.equals(age, student.age);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Objects.hash(name, age);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        HashSet&lt;Student&gt; set = <span class="keyword">new</span> HashSet();</span><br><span class="line">        set.add(<span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">3</span>));</span><br><span class="line">        set.add(<span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">3</span>));</span><br><span class="line">        <span class="keyword">for</span> (Student student : set) &#123;</span><br><span class="line">            System.out.println(student);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果如下所示：</p>
+<p><img src="/img/4/dasdmaksdasfas.png" alt="image"></p>
+<p>根据结果可以看出，重复元素已经被覆盖了，保证了集合中元素的唯一性。</p>
+<h2 id="为什么不直接使用数组，而使用HashSet？"><a href="#为什么不直接使用数组，而使用HashSet？" class="headerlink" title="为什么不直接使用数组，而使用HashSet？"></a>为什么不直接使用数组，而使用HashSet？</h2><p>因为数组的索引是连续的，而且数组的长度是固定的，无法自由增加数组的长度，而HashCode表用每个元素的HashCode值来计算其存储位置，从而可以自由增加HashCode的长度，并根据元素的HashCode值来访问元素，而不用一个个遍历索引去访问，这就是它比数组快的原因。</p>
+<h1 id="LinkedHashSet类"><a href="#LinkedHashSet类" class="headerlink" title="LinkedHashSet类"></a><strong>LinkedHashSet类</strong></h1><p>LinkedHashSet也是根据元素的HashCode值来决定元素的存储位置，但它同时使用链表维护元素的次序，这样使得元素看起来是以插入的顺序保存的，也就是说当遍历LinkedHashSet集合里的元素的时候，集合将会按元素的添加顺序来访问集合里的元素。但是，LinkedHashSet依然是HashSet，因此，它还是不允许添加重复元素。</p>
+<p>实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       HashSet&lt;Student&gt; set = <span class="keyword">new</span> LinkedHashSet&lt;&gt;();</span><br><span class="line">       set.add(<span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">3</span>));</span><br><span class="line">       set.add(<span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">4</span>));</span><br><span class="line">       set.add(<span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">5</span>));</span><br><span class="line">       set.add(<span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">6</span>));</span><br><span class="line">       set.add(<span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">7</span>));</span><br><span class="line">       <span class="keyword">for</span> (Student student : set) &#123;</span><br><span class="line">           System.out.println(student);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/4/asdsadlkasmdklasdm.png" alt="image"></p>
+<h1 id="TreeSet类"><a href="#TreeSet类" class="headerlink" title="TreeSet类"></a><strong>TreeSet类</strong></h1><p>TreeSet是SortedSet接口的实现类，TreeSet可以确保集合元素处于排序状态。TreeSet内部实现的是红黑树，红黑树就是一种自平衡的二叉树。TreeSet支持两种排序方法，自然排序和定制排序，在默认的情况下，采用的是自然排序。</p>
+<ul>
+<li>自然排序</li>
+</ul>
+<p>TreeSet会调用集合元素的compareTo(Object o)方法来比较元素之间的大小关系，然后将集合元素进行升序排列，这就是自然排序。如果是比较自定义对象，Java提供了一个Comparable接口，该接口定义了一个compareTo方法，返回是一个整数值，实现该接口的类必须实现该方法，当一个对象调用该方法与另一个对象进行比较时，o1.compareTo(o2)，返回0表示两个对象相等，如果返回正整数，表示o1大于o2，返回负整数，则表示o1小于02。</p>
+<p>实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Student o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> num=<span class="keyword">this</span>.age-o.age;</span><br><span class="line">    <span class="comment">//如果age相等则比较name长度</span></span><br><span class="line">    <span class="keyword">int</span> num1=num==<span class="number">0</span>?<span class="keyword">this</span>.name.length()-o.name.length():num;</span><br><span class="line">    <span class="comment">//如果前两者都相等则比较name字符串</span></span><br><span class="line">    <span class="keyword">int</span> num2=num1==<span class="number">0</span>?<span class="keyword">this</span>.name.compareTo(o.name):num1;</span><br><span class="line">    <span class="keyword">return</span> num2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TreeSet&lt;Student&gt; set = <span class="keyword">new</span> TreeSet&lt;&gt;();</span><br><span class="line">set.add(<span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">3</span>));</span><br><span class="line">set.add(<span class="keyword">new</span> Student(<span class="string">"张四"</span>,<span class="number">3</span>));</span><br><span class="line">set.add(<span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">5</span>));</span><br><span class="line">set.add(<span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">6</span>));</span><br><span class="line">set.add(<span class="keyword">new</span> Student(<span class="string">"张三"</span>,<span class="number">5</span>));</span><br><span class="line"><span class="keyword">for</span> (Student student : set) &#123;</span><br><span class="line">    System.out.println(student);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="/img/4/fdskflksdmflkds.png" alt="image"></p>
+<ul>
+<li>定制排序</li>
+</ul>
+<p>TreeSet的自然排序是根据集合元素的大小，TreeSet将他们升序排序，如果需要实现定制排序，例如降序排序，则可通过Comparator接口定义，该接口包含一个compare(T o1,T o2)方法，用来比较o1和o2的大小。</p>
+<p>实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">TreeSet&lt;Integer&gt; set = <span class="keyword">new</span> TreeSet&lt;&gt;(<span class="keyword">new</span> Comparator&lt;Integer&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Integer o1, Integer o2)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> o2 - o1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">set.add(<span class="number">2</span>);</span><br><span class="line">set.add(<span class="number">6</span>);</span><br><span class="line">set.add(<span class="number">3</span>);</span><br><span class="line">set.add(<span class="number">7</span>);</span><br><span class="line">set.add(<span class="number">5</span>);</span><br><span class="line"><span class="keyword">for</span> (Integer integer : set) &#123;</span><br><span class="line">    System.out.println(integer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="/img/4/dsadkalndsa.png" alt="image"></p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/25/%E6%B5%85%E8%B0%88Set%E9%9B%86%E5%90%88/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-浅谈List集合" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
