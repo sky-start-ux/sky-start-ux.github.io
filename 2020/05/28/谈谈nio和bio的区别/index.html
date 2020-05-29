@@ -6,15 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | My Blogs</title>
+  <title>谈谈nio和bio的区别 | My Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="My Blogs">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="前言在谈nio和bio之前，我们需要先了解什么是阻塞和非阻塞。 1）阻塞和非阻塞阻塞和非阻塞是进程在访问数据的时候，数据是否准备就绪的一种处理方式，当数据没有准备完成的时候阻塞，往往需要等待缓存区中的数据准备好之后才能处理其他的事情，否则就一直等待在那里。 非阻塞：当我们的进程访问我们的数据缓冲区的时候，如果数据还没有准备好则直接返回，不会等待，如果数据准备好了，也直接返回。 2）同步和异步同步和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈谈nio和bio的区别">
+<meta property="og:url" content="http://yoursite.com/2020/05/28/%E8%B0%88%E8%B0%88nio%E5%92%8Cbio%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
 <meta property="og:site_name" content="My Blogs">
+<meta property="og:description" content="前言在谈nio和bio之前，我们需要先了解什么是阻塞和非阻塞。 1）阻塞和非阻塞阻塞和非阻塞是进程在访问数据的时候，数据是否准备就绪的一种处理方式，当数据没有准备完成的时候阻塞，往往需要等待缓存区中的数据准备好之后才能处理其他的事情，否则就一直等待在那里。 非阻塞：当我们的进程访问我们的数据缓冲区的时候，如果数据还没有准备好则直接返回，不会等待，如果数据准备好了，也直接返回。 2）同步和异步同步和">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/img/6/371217-20181216205204619-1237916809.jpg">
+<meta property="og:image" content="http://yoursite.com/img/6/371217-20181216205228564-867800649.png">
+<meta property="og:image" content="http://yoursite.com/img/6/371217-20181216205238924-890218087.png">
+<meta property="og:image" content="http://yoursite.com/img/6/371217-20181216205249173-151738900.png">
+<meta property="article:published_time" content="2020-05-28T07:46:55.000Z">
+<meta property="article:modified_time" content="2020-05-29T06:41:45.338Z">
 <meta property="article:author" content="sky丶沉默灬">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/img/6/371217-20181216205204619-1237916809.jpg">
   
     <link rel="alternative" href="/atom.xml" title="My Blogs" type="application/atom+xml">
   
@@ -144,36 +154,124 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-谈谈nio和bio的区别" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      谈谈nio和bio的区别
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/28/%E8%B0%88%E8%B0%88nio%E5%92%8Cbio%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
+
+        
+        <a href="/2020/05/28/%E8%B0%88%E8%B0%88nio%E5%92%8Cbio%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
   	<time datetime="2020-05-28T07:46:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-28</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/28/%E8%B0%88%E8%B0%88nio%E5%92%8Cbio%E7%9A%84%E5%8C%BA%E5%88%AB/">谈谈nio和bio的区别</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h1><p>在谈nio和bio之前，我们需要先了解什么是阻塞和非阻塞。</p>
+<h2 id="1）阻塞和非阻塞"><a href="#1）阻塞和非阻塞" class="headerlink" title="1）阻塞和非阻塞"></a>1）阻塞和非阻塞</h2><p>阻塞和非阻塞是进程在访问数据的时候，数据是否准备就绪的一种处理方式，当数据没有准备完成的时候阻塞，往往需要等待缓存区中的数据准备好之后才能处理其他的事情，否则就一直等待在那里。</p>
+<p>非阻塞：当我们的进程访问我们的数据缓冲区的时候，如果数据还没有准备好则直接返回，不会等待，如果数据准备好了，也直接返回。</p>
+<h2 id="2）同步和异步"><a href="#2）同步和异步" class="headerlink" title="2）同步和异步"></a>2）同步和异步</h2><p>同步和异步都是基于应用程序的操作系统处理I/O事件所采用的方式，比如同步是应用程序要直接参与IO读写的操作，异步是所有的IO读写交给操作系统去处理，应用程序只需要等待通知。</p>
+<p>同步方式在处理IO事件的时候，必须阻塞在某个方法上面等待我们的IO事件完成，(阻塞IO事件或者通过轮询IO事件的方式)，对于异步来说，所有的IO都交给了操作系统，这个时候，我们就可以去做其他的事情，并不需要去完成真正的IO操作，当操作完成IO后，会给我们的应用程序一个通知。</p>
+<p>同步：阻塞到IO事件，阻塞到read或者write，这个时候我们就完全不能做其他的事情，让读写方法加入到线程里面，然后阻塞线程来实现，对线程的性能开销比较大。</p>
+<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
+<h1 id="BIO和NIO对比"><a href="#BIO和NIO对比" class="headerlink" title="BIO和NIO对比"></a><strong>BIO和NIO对比</strong></h1><p>1、区别</p>
+<table>
+<thead>
+<tr>
+<th align="center">IO模型</th>
+<th align="center">IO</th>
+<th align="center">NIO</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">方式</td>
+<td align="center">从硬盘到内存</td>
+<td align="center">从内存到硬盘</td>
+</tr>
+<tr>
+<td align="center">通信</td>
+<td align="center">面向流</td>
+<td align="center">面向缓冲区</td>
+</tr>
+<tr>
+<td align="center">处理</td>
+<td align="center">阻塞IO</td>
+<td align="center">非阻塞IO</td>
+</tr>
+<tr>
+<td align="center">触发</td>
+<td align="center">无</td>
+<td align="center">选择器(轮询机制)</td>
+</tr>
+</tbody></table>
+<p>2、 面向流和面向缓冲</p>
+<p>Java NIO和IO之间最大的区别就是IO是面向流的，而NIO是面向缓冲区。Java IO面向流意味着每次从流中读取一个或多个字节，直至读取所有字节，它们没有被缓存到任何地方，此外，它们不能前后移动流中的数据，如果需要前后移动从流中读取的数据，需要将它们先缓存到一个缓冲区。Java NIO数据读取到一个它稍作处理的缓冲区，需要时可在缓存区前后移动，这就增加了处理过程中的灵活性，但是，还需要检查该缓冲区中是否包含所有需要处理的数据，而且，需要确保当更多的数据读入缓冲区时，不会覆盖缓冲区中尚未处理的数据。</p>
+<p>3、阻塞和非阻塞IO</p>
+<p>Java IO的各种流都是阻塞的，这就意味着当一个线程被调用read或者write时，该线程被阻塞，直到所需的数据完全写入。该线程在此期间不能再干任何事情。Java NIO的非阻塞模式，是一个线程从某通道发送请求读取数据，但是它仅能获取到当前可用的数据，在这期间，它可以做其他的事情，非阻塞写也是如此，一个线程请求写入数据，但不需要等待它完全写入，这个线程可以同时处理别的事情。线程通常将非阻塞IO的空闲时间用于其他的通道上执行IO操作，所以一个线程现在可以管理多个输入与输出通道。</p>
+<p>4、 选择器</p>
+<p>Java NIO的选择器允许一个单独的线程来监视多个输入通道，你可以注册多个通道使用一个选择器，然后使用一个单独的线程来”选择”通道，这些通道里已经有可以处理的输入，或者选择已准备写入的通道，这种选择机制，使得一个单独的线程很容易来管理多个通道。</p>
+<p>总结：</p>
+<ol>
+<li>BIO是面向流的，NIO是面向缓冲区的，</li>
+<li>BIO是同步阻塞式IO，就是我们平常使用的传统IO，它的特点是模式简单，使用方便，并发处理能力低。</li>
+<li>NIO是同步非阻塞式IO，是传统IO的升级版，客户端和服务器端通过通道通信，实现了多路复用。</li>
+<li>AIO是NIO的升级，也叫NIO2，实现了异步非阻塞IO，异步IO的操作基于事件和回调机制。</li>
+</ol>
+<h1 id="Reactor模型"><a href="#Reactor模型" class="headerlink" title="Reactor模型"></a><strong>Reactor模型</strong></h1><ul>
+<li>AWT Events</li>
+</ul>
+<p><img src="/img/6/371217-20181216205204619-1237916809.jpg" alt="image"></p>
+<p>Reactor模型和AWT事件模型很像，就是将消息放到一个队列中，通过异步线程池对其消费。</p>
+<h2 id="Reactor中的组件"><a href="#Reactor中的组件" class="headerlink" title="Reactor中的组件"></a><strong>Reactor中的组件</strong></h2><ul>
+<li>Reactor：Reactor是IO事件的派发者。相当于有分支功能的Selector。</li>
+<li>Acceptor：Acceptor接收client连接，建立对应client的Handler，并向Reactor注册此Handler。NIO中建立连接的那个判断分支。</li>
+<li>Handler：和client通信的一个实体，按这样的过程实现业务的处理，一般在基本的Handler基础上还会有更进一步的层次划分，用来抽象如decode，process和encoder这些过程。比如对WebService而言，decode通常是HTTP请求的解析，process的过程会进一步涉及到Listenr和Servlet的调用。业务逻辑的处理在Reactor模式里被分散的IO事件所打破，所以Handler需要有适当的机制在所需的信息还不全的时候(读到一半)保存上下文，并在下一次的IO事件到来的时候，(另一半可读了)能继续中断的处理，为了简化设计，Handler通常被设计成状态机，按GoF的state pattern来实现。消息读写处理的等操作类</li>
+</ul>
+<p>Reactor从线程池和Reactor的选择上可以细分为一下几种：</p>
+<h2 id="Reactor单线程的模型"><a href="#Reactor单线程的模型" class="headerlink" title="Reactor单线程的模型"></a><strong>Reactor单线程的模型</strong></h2><p><img src="/img/6/371217-20181216205228564-867800649.png" alt="image"></p>
+<p>这个模型和上面的NIO流程很相似，只是将消息相关处理独立到了Handler中去了。虽然上面说到NIO一个线程就可以支持所有的IO处理，但是瓶颈也是显而易见的，如果这个客户端多次进行请求，而在Handler中的处理速度又比较慢，那么所有的后续客户端请求就会被积压，导致响应变慢，所以引入了Reactor多线程的流程模型。</p>
+<h2 id="Reactor多线程的模型"><a href="#Reactor多线程的模型" class="headerlink" title="Reactor多线程的模型"></a><strong>Reactor多线程的模型</strong></h2><p><img src="/img/6/371217-20181216205238924-890218087.png" alt="image"></p>
+<p>Reactor多线程模型就是将Handler中的IO操作和非IO操作分开，操作IO的线程称为IO线程，非IO操作的线程称为工作线程，这样的话，客户端的请求就会直接被丢到线程池中，客户端发送请求就不会阻塞。但是当用户进一步增加的时候，Reactor会出现瓶颈，因为Reactor既要处理IO操作请求，又要响应连接请求，为了分担Reactor的负担，所以引入了主从Reactor模型。</p>
+<h2 id="主从Reactor模型"><a href="#主从Reactor模型" class="headerlink" title="主从Reactor模型"></a><strong>主从Reactor模型</strong></h2><p><img src="/img/6/371217-20181216205249173-151738900.png" alt="image"></p>
+<p>主Reactor用于响应连接请求，从Reactor用于处理IO操作请求。</p>
+<p>Netty是一个高性能NIO框架，是对Reactor模型的一个实现。</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -185,236 +283,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/05/28/%E8%B0%88%E8%B0%88nio%E5%92%8Cbio%E7%9A%84%E5%8C%BA%E5%88%AB/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/27/Java%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2020-05-27T09:20:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-27</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/05/27/Java%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java基础概念总结</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/27/Java%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/">Java基础概念总结</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/25/Map%E9%9B%86%E5%90%88/" class="archive-article-date">
-  	<time datetime="2020-05-25T15:04:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/25/Map%E9%9B%86%E5%90%88/">HashMap集合</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/25/%E6%B5%85%E8%B0%88Set%E9%9B%86%E5%90%88/" class="archive-article-date">
-  	<time datetime="2020-05-25T07:15:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/25/%E6%B5%85%E8%B0%88Set%E9%9B%86%E5%90%88/">浅谈Set集合</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/23/%E6%B5%85%E8%B0%88List%E9%9B%86%E5%90%88/" class="archive-article-date">
-  	<time datetime="2020-05-23T08:28:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/23/%E6%B5%85%E8%B0%88List%E9%9B%86%E5%90%88/">浅谈List集合</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/" class="archive-article-date">
-  	<time datetime="2020-05-22T07:29:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/">浅谈String、StringBuffer、StringBuilder</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/01/hello-world/" class="archive-article-date">
-  	<time datetime="2020-04-01T11:00:55.495Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/01/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -437,8 +405,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
