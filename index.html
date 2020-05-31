@@ -146,6 +146,369 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-反射的总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/29/%E5%8F%8D%E5%B0%84%E7%9A%84%E6%80%BB%E7%BB%93/">反射的总结</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/29/%E5%8F%8D%E5%B0%84%E7%9A%84%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2020-05-29T08:02:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="反射的概述"><a href="#反射的概述" class="headerlink" title="反射的概述"></a><strong>反射的概述</strong></h1><p>Java反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法，对于任意一个对象，都能够调用它的任意一个方法和属性，这种动态获取的信息以及动态调用对象的方法的功能称为Java语言的反射机制。</p>
+<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>在日常的第三方应用开发过程中，经常会遇到某个类的某个成员变量、方法或是属性是私有的或是只对系统应用开放，这时候就可以利用Java的反射机制通过反射来获取所需的私有成员或是方法。当然，也不是所有的都适合反射，如果经过层层调用后在最终返回结果的地方对应用返回值是没有意义的缺省值，否则返回实际值起到保护用户的隐私目的，这时，通过反射得到的结果就与预期不符。</p>
+<h2 id="反射机制的相关类"><a href="#反射机制的相关类" class="headerlink" title="反射机制的相关类"></a><strong>反射机制的相关类</strong></h2><p>与Java反射相关的类相关如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">类名</th>
+<th align="center">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Class类</td>
+<td align="center">代表类的实体，在运行的Java应用程序中表示类和接口</td>
+</tr>
+<tr>
+<td align="center">Field类</td>
+<td align="center">代表类的成员变量(成员变量也称为类的属性)</td>
+</tr>
+<tr>
+<td align="center">Method类</td>
+<td align="center">代表类的方法</td>
+</tr>
+<tr>
+<td align="center">Constructor类</td>
+<td align="center">代表类的构造方法</td>
+</tr>
+</tbody></table>
+<h3 id="1-Class类"><a href="#1-Class类" class="headerlink" title="1. Class类"></a><strong>1. Class类</strong></h3><p>Class代表的是类的实体，在运行的Java应用程序中，代表的类和接口，在这个类中提供了很多有用的方法。</p>
+<ul>
+<li><strong>获得类相关的方法</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">asSubclass(Class&lt;<em>U</em>&gt; clazz)</td>
+<td align="center">把传递的类的对象转换成代表其子类的对象</td>
+</tr>
+<tr>
+<td align="center">Cast</td>
+<td align="center">把对象转换成代表类或是接口的对象</td>
+</tr>
+<tr>
+<td align="center">getClassLoader()</td>
+<td align="center">获得类的加载器</td>
+</tr>
+<tr>
+<td align="center">getClasses()</td>
+<td align="center">返回一个数组，数组中包含该类中所有公共类和接口类的对象</td>
+</tr>
+<tr>
+<td align="center">getDeclaredClasses()</td>
+<td align="center">返回一个数组，数组中包含该类中所有类和接口类的对象</td>
+</tr>
+<tr>
+<td align="center">forName(String className)</td>
+<td align="center">根据类名返回类的对象</td>
+</tr>
+<tr>
+<td align="center">getName()</td>
+<td align="center">获取类的完整路径名字</td>
+</tr>
+<tr>
+<td align="center">newInstance()</td>
+<td align="center">创建类的实例</td>
+</tr>
+<tr>
+<td align="center">getPackage()</td>
+<td align="center">获取类的包名</td>
+</tr>
+<tr>
+<td align="center">getSimpleName()</td>
+<td align="center">获取类的名字</td>
+</tr>
+<tr>
+<td align="center">getSuperclass()</td>
+<td align="center">获取当前类父类的名字</td>
+</tr>
+<tr>
+<td align="center">getInterfaces()</td>
+<td align="center">获取当类实现的类或者接口</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>获取类中属性相关的方法</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">getField(String name)</td>
+<td align="center">获取某个公有的属性对象</td>
+</tr>
+<tr>
+<td align="center">getFields()</td>
+<td align="center">获取所有公有的属性对象</td>
+</tr>
+<tr>
+<td align="center">getDeclaredField(String name)</td>
+<td align="center">获取某个属性对象</td>
+</tr>
+<tr>
+<td align="center">getDeclaredFields()</td>
+<td align="center">获取所有属性对象</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>获取类中注解相关的方法</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">getAnnotation(Class&lt;<em>A</em>&gt; annotationClass)</td>
+<td align="left">返回该类与参数类型匹配的公有注解对象</td>
+</tr>
+<tr>
+<td align="center">getAnnotations()</td>
+<td align="left">返回该类的所有的公有注解对象</td>
+</tr>
+<tr>
+<td align="center">getDeclaredAnnotation(Class&lt;<em>A</em>&gt; annotationClass)</td>
+<td align="left">返回该类中与参数类型匹配的所有注解对象</td>
+</tr>
+<tr>
+<td align="center">getDeclaredAnnotations()</td>
+<td align="left">返回该类所有的注解对象</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>获取类中构造器相关的方法</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">getConstructor(Class…&lt;?&gt; parameterTypes)</td>
+<td align="center">获得该类中与参数类型匹配的公有构造方法</td>
+</tr>
+<tr>
+<td align="center">getConstructors()</td>
+<td align="center">获取该类的所有公有构造方法</td>
+</tr>
+<tr>
+<td align="center">getDeclaredConstructor(Class…&lt;?&gt; parameterTypes)</td>
+<td align="center">获取该类中与参数类型匹配的构造方法</td>
+</tr>
+<tr>
+<td align="center">getDeclaredConstructors()</td>
+<td align="center">获取该类所有的构造方法</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>获取类中方法相关的方法</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">getMethod(String name, Class…&lt;?&gt; parameterTypes)</td>
+<td align="center">获取该类某个公有的方法</td>
+</tr>
+<tr>
+<td align="center">getMethods()</td>
+<td align="center">获得该类所有公有的方法</td>
+</tr>
+<tr>
+<td align="center">getDeclaredMethod(String name, Class…&lt;?&gt; parameterTypes)</td>
+<td align="center">获取该类的某个方法</td>
+</tr>
+<tr>
+<td align="center">getDeclaredMethods()</td>
+<td align="center">获得该类中的所有方法</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>类中其他的重要方法</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">isAnnotation()</td>
+<td align="center">如果是注解类型则返回true</td>
+</tr>
+<tr>
+<td align="center">isAnnotationPresent(Class&lt;? extends Annotation&gt; annotationClass)</td>
+<td align="center">如果指定类型是注解类型则返回true</td>
+</tr>
+<tr>
+<td align="center">isAnonymousClass()</td>
+<td align="center">如果是匿名类，则返回true</td>
+</tr>
+<tr>
+<td align="center">isArray()</td>
+<td align="center">如果是一个数组则返回true</td>
+</tr>
+<tr>
+<td align="center">isEnum()</td>
+<td align="center">如果是枚举类则返回true</td>
+</tr>
+<tr>
+<td align="center">isInstance(Object obj)</td>
+<td align="center">如果obj是该类的实例则返回true</td>
+</tr>
+<tr>
+<td align="center">isInterface()</td>
+<td align="center">如果是接口则返回true</td>
+</tr>
+<tr>
+<td align="center">isLocalClass()</td>
+<td align="center">如果是局部类则返回true</td>
+</tr>
+<tr>
+<td align="center">isMemberClass()</td>
+<td align="center">如果是内部类则返回true</td>
+</tr>
+</tbody></table>
+<h3 id="2-Field类"><a href="#2-Field类" class="headerlink" title="2. Field类"></a><strong>2. Field类</strong></h3><p>Field代表类的成员变量，成员变量也称为类的属性。</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">equals(Object obj)</td>
+<td align="center">属性与obj相等则返回true</td>
+</tr>
+<tr>
+<td align="center">get(Object obj)</td>
+<td align="center">获取obj中对应的属性值</td>
+</tr>
+<tr>
+<td align="center">set(Object obj, Object value)</td>
+<td align="center">设置obj中对应的属性值</td>
+</tr>
+</tbody></table>
+<h3 id="3-Method类"><a href="#3-Method类" class="headerlink" title="3. Method类"></a><strong>3. Method类</strong></h3><p>Method代表类的方法。</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">invoke(Object obj, Object… args)</td>
+<td align="center">传递object对象及参数调用该对象对应的方法</td>
+</tr>
+</tbody></table>
+<h3 id="4-Constructor类"><a href="#4-Constructor类" class="headerlink" title="4. Constructor类"></a><strong>4. Constructor类</strong></h3><p>Constructor代表类的构造方法。</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">newInstance(Object… initargs)</td>
+<td align="center">根据传递的参数创建类的对象</td>
+</tr>
+</tbody></table>
+<p><img src="/img/6/20170513133210763.png" alt="image"></p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">People</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">People</span><span class="params">(String name, Integer age)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Constructor..."</span>);</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">People</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(Integer age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"eat...."</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        System.out.println(name + <span class="string">"  sleep..."</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"People&#123;"</span> +</span><br><span class="line">                <span class="string">"name='"</span> + name + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">", age="</span> + age +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建对象</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Test02</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Class&lt;?&gt; aClass = Class.forName(<span class="string">"com.example.demo.Test.People"</span>);</span><br><span class="line">        People o = (People) aClass.newInstance();</span><br><span class="line">        o.setAge(<span class="number">1</span>);</span><br><span class="line">        o.setName(<span class="string">"sky"</span>);</span><br><span class="line">        System.out.println(o);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InstantiationException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//反射使用私有的构造方法</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Test03</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Class&lt;?&gt; aClass = Class.forName(<span class="string">"com.example.demo.Test.People"</span>);</span><br><span class="line">        Constructor&lt;?&gt; constructor = aClass.getDeclaredConstructor(String<span class="class">.<span class="keyword">class</span>, <span class="title">Integer</span>.<span class="title">class</span>)</span>;</span><br><span class="line">        constructor.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        People sky = (People) constructor.newInstance(<span class="string">"sky"</span>, <span class="number">12</span>);</span><br><span class="line">        System.out.println(sky);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InstantiationException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InvocationTargetException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NoSuchMethodException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//反射使用私有属性</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Test04</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Class&lt;?&gt; aClass = Class.forName(<span class="string">"com.example.demo.Test.People"</span>);</span><br><span class="line">        Constructor&lt;?&gt; constructor = aClass.getDeclaredConstructor(String<span class="class">.<span class="keyword">class</span>, <span class="title">Integer</span>.<span class="title">class</span>)</span>;</span><br><span class="line">        constructor.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        People sky = (People) constructor.newInstance(<span class="string">"sky"</span>, <span class="number">12</span>);</span><br><span class="line">        Field name = aClass.getDeclaredField(<span class="string">"name"</span>);</span><br><span class="line">        name.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        String o1 = (String) name.get(sky);</span><br><span class="line">        System.out.println(o1);</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NoSuchFieldException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InstantiationException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NoSuchMethodException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InvocationTargetException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//反射使用无参私有方法</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Test05</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Class&lt;?&gt; aClass = Class.forName(<span class="string">"com.example.demo.Test.People"</span>);</span><br><span class="line">        Method eat = aClass.getDeclaredMethod(<span class="string">"eat"</span>);</span><br><span class="line">        eat.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        People o = (People) aClass.newInstance();</span><br><span class="line">        eat.invoke(o);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//反射使用有参私有方法</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Test6</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Class&lt;?&gt; aClass = Class.forName(<span class="string">"com.example.demo.Test.People"</span>);</span><br><span class="line">        Method sleep = aClass.getDeclaredMethod(<span class="string">"sleep"</span>, String<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        sleep.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        People o = (People) aClass.newInstance();</span><br><span class="line">        sleep.invoke(o,<span class="string">"sky"</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/29/%E5%8F%8D%E5%B0%84%E7%9A%84%E6%80%BB%E7%BB%93/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-谈谈nio和bio的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
