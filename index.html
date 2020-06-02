@@ -146,6 +146,85 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-代理模式详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/02/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/">代理模式详解</a>
+    </h1>
+  
+
+        
+        <a href="/2020/06/02/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/" class="archive-article-date">
+  	<time datetime="2020-06-02T05:46:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a><strong>概述</strong></h1><p>在代理模式中，一个类代表另一个类的功能，这种类型的设计模式属于结构型模式，在代理模式中，我们创建具有现有对象的对象，以便向外界提供功能接口。</p>
+<p>实例：spring框架的AOP，AOP的拦截功能就是由Java中的动态代理实现的，就是在目标类的基础之上增加切面逻辑，生成增强的目标类。</p>
+<p>AOP源码中用到了两种动态代理来实现拦截切入功能：JDK动态代理和cglib动态代理。JDK动态代理是由Java内部的反射机制来实现的，cglib动态代理则是借助asm来实现的。两种方法各有优劣。</p>
+<p>总的来说，反射机制在生成类中比较高效，而asm在生成类之后的相关执行过程比较高效，可以通过将asm生成的类进行缓存，这样就解决了asm生成类过程低效问题。JDK动态代理的前提，必须是目标类基于统一的接口，由此可以看出，JDK动态代理有一定的局限性，cglib这种第三方类库实现的动态代理应用更加广泛，且效率上更有优势。</p>
+        
+          <a class="article-more-a" href="/2020/06/02/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/06/02/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-反射的总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

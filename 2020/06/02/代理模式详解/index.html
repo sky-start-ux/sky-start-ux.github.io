@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | My Blogs</title>
+  <title>代理模式详解 | My Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="My Blogs">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="概述在代理模式中，一个类代表另一个类的功能，这种类型的设计模式属于结构型模式，在代理模式中，我们创建具有现有对象的对象，以便向外界提供功能接口。 实例：spring框架的AOP，AOP的拦截功能就是由Java中的动态代理实现的，就是在目标类的基础之上增加切面逻辑，生成增强的目标类。 AOP源码中用到了两种动态代理来实现拦截切入功能：JDK动态代理和cglib动态代理。JDK动态代理是由Java内部">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代理模式详解">
+<meta property="og:url" content="http://yoursite.com/2020/06/02/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/index.html">
 <meta property="og:site_name" content="My Blogs">
+<meta property="og:description" content="概述在代理模式中，一个类代表另一个类的功能，这种类型的设计模式属于结构型模式，在代理模式中，我们创建具有现有对象的对象，以便向外界提供功能接口。 实例：spring框架的AOP，AOP的拦截功能就是由Java中的动态代理实现的，就是在目标类的基础之上增加切面逻辑，生成增强的目标类。 AOP源码中用到了两种动态代理来实现拦截切入功能：JDK动态代理和cglib动态代理。JDK动态代理是由Java内部">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/img/6/1071931-20180108134122472-1822105846.png">
+<meta property="article:published_time" content="2020-06-02T05:46:38.000Z">
+<meta property="article:modified_time" content="2020-06-02T14:00:54.090Z">
 <meta property="article:author" content="sky丶沉默灬">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/img/6/1071931-20180108134122472-1822105846.png">
   
     <link rel="alternative" href="/atom.xml" title="My Blogs" type="application/atom+xml">
   
@@ -144,36 +151,112 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-代理模式详解" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      代理模式详解
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/02/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/" class="archive-article-date">
+
+        
+        <a href="/2020/06/02/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/" class="archive-article-date">
   	<time datetime="2020-06-02T05:46:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-02</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/02/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/">代理模式详解</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a><strong>概述</strong></h1><p>在代理模式中，一个类代表另一个类的功能，这种类型的设计模式属于结构型模式，在代理模式中，我们创建具有现有对象的对象，以便向外界提供功能接口。</p>
+<p>实例：spring框架的AOP，AOP的拦截功能就是由Java中的动态代理实现的，就是在目标类的基础之上增加切面逻辑，生成增强的目标类。</p>
+<p>AOP源码中用到了两种动态代理来实现拦截切入功能：JDK动态代理和cglib动态代理。JDK动态代理是由Java内部的反射机制来实现的，cglib动态代理则是借助asm来实现的。两种方法各有优劣。</p>
+<p>总的来说，反射机制在生成类中比较高效，而asm在生成类之后的相关执行过程比较高效，可以通过将asm生成的类进行缓存，这样就解决了asm生成类过程低效问题。JDK动态代理的前提，必须是目标类基于统一的接口，由此可以看出，JDK动态代理有一定的局限性，cglib这种第三方类库实现的动态代理应用更加广泛，且效率上更有优势。</p>
+<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
+<p><img src="/img/6/1071931-20180108134122472-1822105846.png" alt="image"></p>
+<h1 id="代理模式的分类"><a href="#代理模式的分类" class="headerlink" title="代理模式的分类"></a><strong>代理模式的分类</strong></h1><h2 id="静态代理和动态代理"><a href="#静态代理和动态代理" class="headerlink" title="静态代理和动态代理"></a><strong>静态代理和动态代理</strong></h2><ol>
+<li>静态代理需要手动实现被代理接口的所有方法，而动态代理通过反射可以自动代理接口的所有方法。</li>
+<li>静态代理在编译的时候就生成了代理类的class文件，动态代理在运行的时候生成代理类。</li>
+<li>代理模式符合面向切面编程(AOP)思想，它强调在切入点的前后做增强处理。</li>
+</ol>
+<h2 id="1-静态代理"><a href="#1-静态代理" class="headerlink" title="1. 静态代理"></a><strong>1. 静态代理</strong></h2><p>实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BuyHouse</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">buyHouse</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BuyHouseImpl</span> <span class="keyword">implements</span> <span class="title">BuyHouse</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buyHouse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"我要买房"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyBuyHouse</span> <span class="keyword">implements</span> <span class="title">BuyHouse</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> BuyHouse buyHouse;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProxyBuyHouse</span><span class="params">()</span></span>&#123;</span><br><span class="line">        buyHouse = <span class="keyword">new</span> BuyHouseImpl();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buyHouse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        buyHouse.buyHouse();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ProxyTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">    BuyHouse proxy = <span class="keyword">new</span> ProxyBuyHouse();</span><br><span class="line">    proxy.buyHouse();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>缺点：需要给每一个服务都创建代理类，不依管理，同时接口一旦发生变化，代理类也得进行相应的修改。</p>
+<h2 id="2-JDK动态代理"><a href="#2-JDK动态代理" class="headerlink" title="2. JDK动态代理"></a><strong>2. JDK动态代理</strong></h2><p>实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BuyHouseHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">    <span class="comment">//需要代理的目标对象</span></span><br><span class="line">    <span class="keyword">private</span> Object target;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BuyHouseHandler</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target = <span class="keyword">new</span> BuyHouseImpl();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        Object invoke = method.invoke(target, args);</span><br><span class="line">        <span class="keyword">return</span> invoke;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ProxyTest01</span><span class="params">()</span></span>&#123;</span><br><span class="line">    BuyHouseImpl buyHouse = <span class="keyword">new</span> BuyHouseImpl();</span><br><span class="line">    BuyHouse o = (BuyHouse) Proxy.newProxyInstance(</span><br><span class="line">        buyHouse.getClass().getClassLoader(),</span><br><span class="line">        buyHouse.getClass().getInterfaces(), </span><br><span class="line">        <span class="keyword">new</span> BuyHouseHandler());</span><br><span class="line">    o.buyHouse();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    proxy：被代理的对象</span></span><br><span class="line"><span class="comment">    method：被代理的方法</span></span><br><span class="line"><span class="comment">    args：方法的参数</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">/*</span></span></span><br><span class="line"><span class="function"><span class="comment">    ClassLoader loader:指定当前目标对象使用的类加载器，获取类加载器的方法是固定的</span></span></span><br><span class="line"><span class="function"><span class="comment">    </span></span></span><br><span class="line"><span class="function"><span class="comment">    Class&lt;?&gt;[] interfaces：指定目标对象实现的接口类型，使用泛型方式确认类型</span></span></span><br><span class="line"><span class="function"><span class="comment"></span></span></span><br><span class="line"><span class="function"><span class="comment">    InvocationHandler：指定动态的处理器，执行目标对象的方法时，会触发时间处理器的方法。</span></span></span><br><span class="line"><span class="function"><span class="comment">*/</span></span></span><br><span class="line"><span class="function">Proxy.<span class="title">newProxyInstance</span><span class="params">(buyHouse.getClass()</span>.<span class="title">getClassLoader</span><span class="params">()</span>,</span></span><br><span class="line"><span class="function">        buyHouse.<span class="title">getClass</span><span class="params">()</span>.<span class="title">getInterfaces</span><span class="params">()</span>, </span></span><br><span class="line"><span class="function">        new <span class="title">BuyHouseHandler</span><span class="params">()</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>动态代理总结：相对于静态代理来说，动态代理大大减少了我们的开发任务，同时减少了对业务接口的依赖，降低了耦合度。</p>
+<h2 id="3-CGBIB代理"><a href="#3-CGBIB代理" class="headerlink" title="3. CGBIB代理"></a>3. CGBIB代理</h2><p>实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ProxyTest02</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//通过CGLIB动态代理获取代理对象的过程</span></span><br><span class="line">    Enhancer enhancer = <span class="keyword">new</span> Enhancer();</span><br><span class="line">    <span class="comment">//设置enhancer对象的父类</span></span><br><span class="line">    enhancer.setSuperclass(BuyHouseImpl<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    <span class="comment">//设置enhancer的回调对象</span></span><br><span class="line">    enhancer.setCallback(<span class="keyword">new</span> MethodInterceptor() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object o, Method method, Object[] objects, MethodProxy methodProxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> methodProxy.invokeSuper(o,objects);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//创建代理对象</span></span><br><span class="line">    BuyHouseImpl buyHouse = (BuyHouseImpl) enhancer.create();</span><br><span class="line">    <span class="comment">//通过代理对象调用目标方法</span></span><br><span class="line">    buyHouse.buyHouse();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><table>
+<thead>
+<tr>
+<th align="center">代理方式</th>
+<th align="center">实现</th>
+<th align="center">优点</th>
+<th align="center">缺点</th>
+<th align="center">特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">JDK静态代理</td>
+<td align="center">代理类和委托类实现同一个接口，并且在代理类中需要编码实现接口</td>
+<td align="center">实现简单，容易理解</td>
+<td align="center">在实际开发中，容易导致重复代码，浪费内存空间并且效率低</td>
+<td align="center">无</td>
+</tr>
+<tr>
+<td align="center">JDK动态代理</td>
+<td align="center">代理类和委托类实现同一个接口，主要是通过代理类实现的InvocationHandler接口，并实现invoke方法，对方法进行增强处理</td>
+<td align="center">代码复用率高</td>
+<td align="center">只能够代理实现了接口的委托类</td>
+<td align="center">底层使用反射机制进行方法的调用</td>
+</tr>
+<tr>
+<td align="center">CGBIC动态代理</td>
+<td align="center">代理类将委托类作为自己的父类并为其中的非final委托方法创建两个方法，一个是与委托方法签名相同的方法，它会在方法中通过super调用委托方法，另一个是代理类独有的方法。在代理方法中，它会判断是否存在实现了MethodInterceptor接口的对象，若存在，将调用intercept方法对委托方法进行代理</td>
+<td align="center">可以在运行时对类或者接口进行增强操作，且委托类无需实现接口</td>
+<td align="center">不能对final修饰的类和方法进行代理</td>
+<td align="center">底层将方法全部存入一个数组中，通过数组索引直接进行方法调用</td>
+</tr>
+</tbody></table>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -185,312 +268,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/06/02/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/29/%E5%8F%8D%E5%B0%84%E7%9A%84%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2020-05-29T08:02:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-29</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/05/29/%E5%8F%8D%E5%B0%84%E7%9A%84%E6%80%BB%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">反射的总结</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/29/%E5%8F%8D%E5%B0%84%E7%9A%84%E6%80%BB%E7%BB%93/">反射的总结</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/28/%E8%B0%88%E8%B0%88nio%E5%92%8Cbio%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
-  	<time datetime="2020-05-28T07:46:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/28/%E8%B0%88%E8%B0%88nio%E5%92%8Cbio%E7%9A%84%E5%8C%BA%E5%88%AB/">谈谈nio和bio的区别</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/27/Java%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2020-05-27T09:20:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/27/Java%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/">Java基础概念总结</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/25/Map%E9%9B%86%E5%90%88/" class="archive-article-date">
-  	<time datetime="2020-05-25T15:04:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/25/Map%E9%9B%86%E5%90%88/">HashMap集合</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/25/%E6%B5%85%E8%B0%88Set%E9%9B%86%E5%90%88/" class="archive-article-date">
-  	<time datetime="2020-05-25T07:15:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/25/%E6%B5%85%E8%B0%88Set%E9%9B%86%E5%90%88/">浅谈Set集合</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/23/%E6%B5%85%E8%B0%88List%E9%9B%86%E5%90%88/" class="archive-article-date">
-  	<time datetime="2020-05-23T08:28:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/23/%E6%B5%85%E8%B0%88List%E9%9B%86%E5%90%88/">浅谈List集合</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/" class="archive-article-date">
-  	<time datetime="2020-05-22T07:29:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/">浅谈String、StringBuffer、StringBuilder</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/01/hello-world/" class="archive-article-date">
-  	<time datetime="2020-04-01T11:00:55.495Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/01/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -513,8 +390,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
