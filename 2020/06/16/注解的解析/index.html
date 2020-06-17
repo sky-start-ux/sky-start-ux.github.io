@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Java | My Blogs</title>
+  <title>注解的解析 | My Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="My Blogs">
-<meta property="og:url" content="http://yoursite.com/tags/Java/index.html">
+  <meta name="description" content="Java注解的基本原理以前，XML是各个框架的亲昧者，它以低耦合的方式完成了框架中几乎所有的配置，但是随着项目越来越大，XML的内容也越来越复杂，维护成本变高。于是就有人提出一种标记式高耦合的配置方式，注解，方法上可以进行注解，类上也可以进行注解，字段属性上也可以注解，几乎所有需要配置的地方都可以进行注解。注解和XML两种不同的配置模式，各有各的优劣，注解可以提供更大的便捷性，易于维护修改，但耦合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="注解的解析">
+<meta property="og:url" content="http://yoursite.com/2020/06/16/%E6%B3%A8%E8%A7%A3%E7%9A%84%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="My Blogs">
+<meta property="og:description" content="Java注解的基本原理以前，XML是各个框架的亲昧者，它以低耦合的方式完成了框架中几乎所有的配置，但是随着项目越来越大，XML的内容也越来越复杂，维护成本变高。于是就有人提出一种标记式高耦合的配置方式，注解，方法上可以进行注解，类上也可以进行注解，字段属性上也可以注解，几乎所有需要配置的地方都可以进行注解。注解和XML两种不同的配置模式，各有各的优劣，注解可以提供更大的便捷性，易于维护修改，但耦合">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/img/6/sdadasdjaksmfksamfk.png">
+<meta property="article:published_time" content="2020-06-16T07:08:16.000Z">
+<meta property="article:modified_time" content="2020-06-17T11:41:53.979Z">
 <meta property="article:author" content="sky丶沉默灬">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/img/6/sdadasdjaksmfksamfk.png">
   
     <link rel="alternative" href="/atom.xml" title="My Blogs" type="application/atom+xml">
   
@@ -144,36 +151,118 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-注解的解析" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      注解的解析
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/16/%E6%B3%A8%E8%A7%A3%E7%9A%84%E8%A7%A3%E6%9E%90/" class="archive-article-date">
+
+        
+        <a href="/2020/06/16/%E6%B3%A8%E8%A7%A3%E7%9A%84%E8%A7%A3%E6%9E%90/" class="archive-article-date">
   	<time datetime="2020-06-16T07:08:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-16</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/16/%E6%B3%A8%E8%A7%A3%E7%9A%84%E8%A7%A3%E6%9E%90/">注解的解析</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Java注解的基本原理"><a href="#Java注解的基本原理" class="headerlink" title="Java注解的基本原理"></a><strong>Java注解的基本原理</strong></h1><p>以前，XML是各个框架的亲昧者，它以低耦合的方式完成了框架中几乎所有的配置，但是随着项目越来越大，XML的内容也越来越复杂，维护成本变高。于是就有人提出一种标记式高耦合的配置方式，注解，方法上可以进行注解，类上也可以进行注解，字段属性上也可以注解，几乎所有需要配置的地方都可以进行注解。注解和XML两种不同的配置模式，各有各的优劣，注解可以提供更大的便捷性，易于维护修改，但耦合度高，而XML相对于注解来说则是相反的。</p>
+<h1 id="注解的本质"><a href="#注解的本质" class="headerlink" title="注解的本质"></a><strong>注解的本质</strong></h1><p>java.lang.annotation.Annotation接口中有这么一段话</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* The common interface extended by all annotation types.  Note that an</span></span><br><span class="line"><span class="comment">*  interface that manually extends this one does &lt;i&gt;not&lt;/i&gt; define</span></span><br><span class="line"><span class="comment">*  an annotation type.  Also note that this interface does not itself</span></span><br><span class="line"><span class="comment">*  define an annotation type.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line">由所有注解类型扩展的公共接口。请注意，手动扩展该接口的接口不会定义注解类型。另请注意，此接口本身并不定义注解类型</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
+<a id="more"></a>
+
+<p>这段话也许会有点抽象，但确说出了注解的本质。JDK内置注解的定义如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.SOURCE)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Override &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>反编译之后如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Override</span> <span class="keyword">extends</span> <span class="title">Annotation</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>没错，注解的本质就是一个继承了Annotation接口的接口，一个注解准确意义上说，只不过是一种特殊的注释而已，如果没有解析它的代码，它可能连注释都不如。而解析一个类或者方法的注解往往有两种形式，一种是编译期直接扫描，一种是运行期反射。典型的就是@Override注解，一旦编译器检测到某个方法被修饰了这个注解，编译器就会检查当前方法的方法签名是否真正重写了父类的某个方法，也就是比较父类中是否具有一个同样的方法签名。根据注解的使用方法和用途，我们可以将注解分为三类，JDK内置注解，元注解和自定义注解。</p>
+<h2 id="系统内置注解"><a href="#系统内置注解" class="headerlink" title="系统内置注解"></a><strong>系统内置注解</strong></h2><p>@Override、@Deprecated和@SuppressWarnnings注解是JavaSE中内置的三个标准注解。</p>
+<ul>
+<li>@Override：用于修饰此方法覆盖了父类的方法</li>
+<li>@Deprecated：用于修饰已经过时的方法</li>
+<li>@SuppressWarnnings：用于通知java编译器禁止特定的编译警告。</li>
+</ul>
+<hr>
+<h2 id="Override"><a href="#Override" class="headerlink" title="@Override"></a>@Override</h2><p>@Override是一个标记注解类型，它被用作标记方法。它说明这个被标注的方法重载了父类的方法，起到了断言的作用。如果我们使用了这个注解在一个没有覆盖重写父类的方法时，java编译器将以编译错误来警示，这个注解常常在我们试图覆盖父类方法而又写错了方法名时发挥威力。使用方法极其简单，在使用此注解时只要在被修饰的方法前面加上这个注解即可。</p>
+<hr>
+<h2 id="Deprecated"><a href="#Deprecated" class="headerlink" title="@Deprecated"></a>@Deprecated</h2><p>@Deprecated同样也是一个标记注解，当一个类型或者类型成员使用@Deprecated修饰的话，编译器将不鼓励使用这个被标注的程序元素。并且这种修饰具有一定的延续性，如果我们在代码中通过继承或者覆盖的方式使用这个过时的类型或者成员，虽然继承或者覆盖后的类型或者成员并不是被声明为@Deprecated，但编译器仍然要报警。</p>
+<hr>
+<h2 id="SuppressWarnings"><a href="#SuppressWarnings" class="headerlink" title="@SuppressWarnings"></a>@SuppressWarnings</h2><p>@SuppressWarnings被用于有选择的关闭编译器对类、方法、成员变量和变量初始化的警告。在java5，sun提供的javac编译器为我们提供了-Xlint选项来使编译器对合法的程序代码提出警告，此种警告从某种程度上代表了程序错误。@SuppressWarnings注解不是一个标记注解，它有一个类型为String[]的成员，这个成员的值为被禁止的警告名，对于javac编译器来说，被-Xlint选项有效的警告名同样对@SuppressWarnings有效，同时忽略掉无法识别的警告名。@SuppressWarnings直接允许在注解名后面跟括号，括号中使用name=value键值对为注解成员复制。</p>
+<p>@SuppressWarnings注解的常用见数值的简单说明：</p>
+<ol>
+<li>deprecation：使用了不赞成使用的类或方法时的警告</li>
+<li>unchecked：执行了为检查的转换时的警告</li>
+<li>fallthrough：当Switch程序块直接通往下一种情况而没有Break时的警告</li>
+<li>path：在类路径、源文件路径等中有不存在的路径时的警告</li>
+<li>serial：当在可序列化的类上缺少serialVersionUID定义时的警告</li>
+<li>finally：任何finally字句不能正常完成时的警告</li>
+<li>all：关于以上所有情况的警告</li>
+</ol>
+<h2 id="元注解"><a href="#元注解" class="headerlink" title="元注解"></a><strong>元注解</strong></h2><p>元注解的作用就是负责注解其他注解。java5定义4个标准的meta-annotation类型，提供对其他注解类型作说明。这个4个元注解分别为@Target、@Retention、@Documented和@Inherited。</p>
+<h2 id="Target"><a href="#Target" class="headerlink" title="@Target"></a>@Target</h2><p>@Target注解用于描述注解的使用范围。取值(ElementType)有：</p>
+<ol>
+<li>CONSTRUCTOR：用于描述构造器</li>
+<li>FIELD：用于描述域</li>
+<li>LOCAL_VARIABLE：用于描述局部变量</li>
+<li>METHOD：用于描述方法</li>
+<li>PACKAGE：用于描述包</li>
+<li>PARAMETER：用于描述参数</li>
+<li>TYPE：用于描述类、接口(或者注解类型)或者enum声明</li>
+</ol>
+<hr>
+<h2 id="Retention"><a href="#Retention" class="headerlink" title="@Retention"></a>@Retention</h2><p>@Retention注解定义了该注解被保留的时间长短，某些注解仅出现在源代码中，而被编译器丢弃，而另一些却被编译在class文件中，编译在class文件中的注解可能会被虚拟机忽略。而另一些在class被装载时被读取。使用这个元注解可以描述注解的生命周期。取值(RetentionPoicy)有：</p>
+<ol>
+<li>SOURCE：在源文件中有效，即源文件保留。</li>
+<li>CLASS：在class文件中有效，即class保留。</li>
+<li>RUNTIME：在运行时有效，即运行时保留。</li>
+</ol>
+<hr>
+<h2 id="Documented"><a href="#Documented" class="headerlink" title="@Documented"></a>@Documented</h2><p>@Documented注解用于描述其他类型的注解应该作为被标注的程序成员的公共API，因此可以被例如javadoc此类的工具文档化。@Documented是一个标记类注解，没有成员。</p>
+<hr>
+<h2 id="Inherited"><a href="#Inherited" class="headerlink" title="@Inherited"></a>@Inherited</h2><p>@Inherited元注解是一个标记注解，@Inherited阐述某个被标注的类型是被继承的。如果一个使用了@Inherited修饰的注解类型被用于一个类，则这个注解将被用于该类的子类。@Inherited注解类型是被标注过的类的子类所继承，类不从它所实现的接口继承注解，方法并不从它所重载的方法继承注解。</p>
+<h2 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a><strong>自定义注解</strong></h2><p>使用@interface自定义注解时，自动继承了java.lang.annotation.Annotation接口，有编译程序自动完成其他细节，在定义继承时，不能继承其他接口或注解。@interface用来声明一个注解，其中的每一个方法实际上是声明一个配置参数。方法的名称就是参数的名称，返回值类型就是参数类型。可以通过default来声明参数的默认值。</p>
+<p>实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 水果颜色注解</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> FruitColor &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 颜色枚举</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">enum</span> Color&#123;BLUE,RED,GREEN&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 颜色属性</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">Color <span class="title">fruitColor</span><span class="params">()</span> <span class="keyword">default</span> Color.RED</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 水果名称注解</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//@Deprecated</span></span><br><span class="line"><span class="meta">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> FruitName &#123;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 水果供应商注解</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> FruitProvider &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 供应商编号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">id</span><span class="params">()</span> <span class="keyword">default</span> -1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 供应商名称</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 供应商地址</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">address</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注解处理器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FruitInfoUtil</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getFruitInfo</span><span class="params">(Class&lt;?&gt; clazz)</span></span>&#123;</span><br><span class="line">        String strFruitName=<span class="string">" 水果名称："</span>;</span><br><span class="line">        String strFruitColor=<span class="string">" 水果颜色："</span>;</span><br><span class="line">        String strFruitProvider= <span class="string">" 供应商信息："</span>;</span><br><span class="line"></span><br><span class="line">        Field[] fields = clazz.getDeclaredFields();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(Field field :fields)&#123;</span><br><span class="line">            <span class="keyword">if</span>(field.isAnnotationPresent(FruitName<span class="class">.<span class="keyword">class</span>))</span>&#123;</span><br><span class="line">                FruitName fruitName = (FruitName) field.getAnnotation(FruitName<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">                strFruitName=strFruitName+fruitName.value();</span><br><span class="line">                System.out.println(strFruitName);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(field.isAnnotationPresent(FruitColor<span class="class">.<span class="keyword">class</span>))</span>&#123;</span><br><span class="line">                FruitColor fruitColor= (FruitColor) field.getAnnotation(FruitColor<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">                strFruitColor=strFruitColor+fruitColor.fruitColor().toString();</span><br><span class="line">                System.out.println(strFruitColor);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(field.isAnnotationPresent(FruitProvider<span class="class">.<span class="keyword">class</span>))</span>&#123;</span><br><span class="line">                FruitProvider fruitProvider= field.getAnnotation(FruitProvider<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">                strFruitProvider=strFruitProvider + <span class="string">" 供应商编号："</span>+fruitProvider.id()+<span class="string">" 供应商名称："</span>+fruitProvider.name()+<span class="string">" 供应商地址："</span>+fruitProvider.address();</span><br><span class="line">                System.out.println(strFruitProvider);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 实体类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Apple</span> </span>&#123;</span><br><span class="line">    <span class="meta">@FruitName</span>(value = <span class="string">"apple"</span>)</span><br><span class="line">    <span class="keyword">private</span> String appleName;</span><br><span class="line">    <span class="meta">@FruitColor</span>(fruitColor = FruitColor.Color.RED)</span><br><span class="line">    <span class="keyword">private</span> String appleColor;</span><br><span class="line">    <span class="meta">@FruitProvider</span>(id = <span class="number">1</span>,name = <span class="string">"撕少水果批发商"</span>,address = <span class="string">"FPX俱乐部"</span>)</span><br><span class="line">    <span class="keyword">private</span> String appleProvider;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAppleName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> appleName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAppleName</span><span class="params">(String appleName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.appleName = appleName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAppleColor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> appleColor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAppleColor</span><span class="params">(String appleColor)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.appleColor = appleColor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAppleProvider</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> appleProvider;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAppleProvider</span><span class="params">(String appleProvider)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.appleProvider = appleProvider;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    FruitInfoUtil.getFruitInfo(Apple<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果如下所示：</p>
+<p><img src="/img/6/sdadasdjaksmfksamfk.png" alt="image"></p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -185,285 +274,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/06/16/%E6%B3%A8%E8%A7%A3%E7%9A%84%E8%A7%A3%E6%9E%90/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/02/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2020-06-02T05:46:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-02</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/06/02/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">代理模式详解</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/02/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/">代理模式详解</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/29/%E5%8F%8D%E5%B0%84%E7%9A%84%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2020-05-29T08:02:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/29/%E5%8F%8D%E5%B0%84%E7%9A%84%E6%80%BB%E7%BB%93/">反射的总结</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/28/%E8%B0%88%E8%B0%88nio%E5%92%8Cbio%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
-  	<time datetime="2020-05-28T07:46:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/28/%E8%B0%88%E8%B0%88nio%E5%92%8Cbio%E7%9A%84%E5%8C%BA%E5%88%AB/">谈谈nio和bio的区别</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/27/Java%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2020-05-27T09:20:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/27/Java%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/">Java基础概念总结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/25/Map%E9%9B%86%E5%90%88/" class="archive-article-date">
-  	<time datetime="2020-05-25T15:04:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/25/Map%E9%9B%86%E5%90%88/">HashMap集合</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/25/%E6%B5%85%E8%B0%88Set%E9%9B%86%E5%90%88/" class="archive-article-date">
-  	<time datetime="2020-05-25T07:15:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/25/%E6%B5%85%E8%B0%88Set%E9%9B%86%E5%90%88/">浅谈Set集合</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/" class="archive-article-date">
-  	<time datetime="2020-05-22T07:29:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/">浅谈String、StringBuffer、StringBuilder</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -486,9 +396,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
