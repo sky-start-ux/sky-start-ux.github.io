@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://yoursite.com/img/720180601155936582.png">
 <meta property="og:image" content="http://yoursite.com/img/7/20180527010213208.png">
 <meta property="article:published_time" content="2020-06-17T15:42:24.000Z">
-<meta property="article:modified_time" content="2020-06-22T15:13:44.172Z">
+<meta property="article:modified_time" content="2020-06-22T15:18:29.097Z">
 <meta property="article:author" content="sky丶沉默灬">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -394,19 +394,15 @@
 <li>CMS失败，发生concurrent mode failure会引起Full GC，这种情况下会使用Serial Old收集器，是单线程的，对GC的影响很大。concurrent mode failure产生的原因是老年代剩余的空间不够，导致了和gc线程并发执行的用户线程创建的大对象(由PretenureSizeThreshold控制新生代直接晋升老年代的对象size阀值)不能进入到老年代，只要stop the world来暂停用户线程，执行GC清理。可以通过设置CMSInitiatingOccupancyFraction预留合适的CMS执行时剩余的空间</li>
 <li>新生代直接晋升到老年代的大对象超过了老年代的剩余空间，引发Full GC。注意于promotion failure的区别，promotion failure指的是Minor GC后发生的担保失败</li>
 <li>Perm永久代空间不足会触发Full GC，可以让CMS清理永久代的空间。设置CMSClassUnloadingEnabled即可</li>
-<li>System.gc()引起的Full GC，可以设置DisableExplicitGC来禁止调用System.gc引发Full GC<br>结论：</li>
+<li>System.gc()引起的Full GC，可以设置DisableExplicitGC来禁止调用System.gc引发Full GC</li>
 </ul>
+<p>结论：</p>
 <ol>
-<li><p>Full GC == Major GC指的是对老年代/永久代的stop the world的GC</p>
-</li>
-<li><p>Full GC的次数 = 老年代GC时 stop the world的次数</p>
-</li>
-<li><p>Full GC的时间 = 老年代GC时 stop the world的总时间</p>
-</li>
-<li><p>CMS 不等于Full GC，我们可以看到CMS分为多个阶段，只有stop the world的阶段被计算到了Full GC的次数和时间，而和业务线程并发的GC的次数和时间则不被认为是Full GC</p>
-</li>
-<li><p>Full GC本身不会先进行Minor GC，我们可以配置，让Full GC之前先进行一次Minor GC，因为老年代很多对象都会引用到新生代的对象，先进行一次Minor GC可以提高老年代GC的速度。比如老年代使用CMS时，设置CMSScavengeBeforeRemark优化，让CMS remark之前先进行一次Minor GC。</p>
-</li>
+<li>Full GC == Major GC指的是对老年代/永久代的stop the world的GC</li>
+<li>Full GC的次数 = 老年代GC时 stop the world的次数</li>
+<li>Full GC的时间 = 老年代GC时 stop the world的总时间</li>
+<li>CMS 不等于Full GC，我们可以看到CMS分为多个阶段，只有stop the world的阶段被计算到了Full GC的次数和时间，而和业务线程并发的GC的次数和时间则不被认为是Full GC</li>
+<li>Full GC本身不会先进行Minor GC，我们可以配置，让Full GC之前先进行一次Minor GC，因为老年代很多对象都会引用到新生代的对象，先进行一次Minor GC可以提高老年代GC的速度。比如老年代使用CMS时，设置CMSScavengeBeforeRemark优化，让CMS remark之前先进行一次Minor GC。</li>
 </ol>
 <h2 id="11-3、Heap什么时候会发生OOM"><a href="#11-3、Heap什么时候会发生OOM" class="headerlink" title="11.3、Heap什么时候会发生OOM"></a>11.3、Heap什么时候会发生OOM</h2><ul>
 <li>当花在GC的时间超过了GCTimeLimit，这个值默认是98%</li>
