@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | My Blogs</title>
+  <title>多线程的概念 | My Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="My Blogs">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="进程：1、程序由指令和数据组成，但这些指令要运行，数据要读写，就必须将指令加载至CPU，数据加载进内存。在指令运行过程中还需要用到磁盘、网络等设备。进程就是用来加载指令、管理内存、管理IO的2、当一个程序被运行，从磁盘加载这个程序的代码进内存，这时就开启了一个进程3、进程就可以视为程序的一个实例，大部分程序可以同时运行多个实例进程（例如笔记本、画图、浏览器等），也有的程序只能只能开启一个实例进程（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程的概念">
+<meta property="og:url" content="http://yoursite.com/2020/08/04/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5/index.html">
 <meta property="og:site_name" content="My Blogs">
+<meta property="og:description" content="进程：1、程序由指令和数据组成，但这些指令要运行，数据要读写，就必须将指令加载至CPU，数据加载进内存。在指令运行过程中还需要用到磁盘、网络等设备。进程就是用来加载指令、管理内存、管理IO的2、当一个程序被运行，从磁盘加载这个程序的代码进内存，这时就开启了一个进程3、进程就可以视为程序的一个实例，大部分程序可以同时运行多个实例进程（例如笔记本、画图、浏览器等），也有的程序只能只能开启一个实例进程（">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-04T06:48:47.000Z">
+<meta property="article:modified_time" content="2020-08-04T06:55:33.435Z">
 <meta property="article:author" content="sky丶沉默灬">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="My Blogs" type="application/atom+xml">
@@ -144,36 +149,65 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-多线程的概念" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      多线程的概念
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/04/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5/" class="archive-article-date">
+
+        
+        <a href="/2020/08/04/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5/" class="archive-article-date">
   	<time datetime="2020-08-04T06:48:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-04</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/04/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5/">多线程的概念</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="进程："><a href="#进程：" class="headerlink" title="进程："></a>进程：</h2><p>1、程序由指令和数据组成，但这些指令要运行，数据要读写，就必须将指令加载至CPU，数据加载进内存。在指令运行过程中还需要用到磁盘、网络等设备。进程就是用来加载指令、管理内存、管理IO的<br>2、当一个程序被运行，从磁盘加载这个程序的代码进内存，这时就开启了一个进程<br>3、进程就可以视为程序的一个实例，大部分程序可以同时运行多个实例进程（例如笔记本、画图、浏览器等），也有的程序只能只能开启一个实例进程（例如网易云、360安全卫士）</p>
+<h2 id="线程："><a href="#线程：" class="headerlink" title="线程："></a>线程：</h2><p>1、一个进程之内可以为一到多个线程<br>2、一个线程就是一个指令流，将指令流中的一条条指令以一定的顺序交给CPU执行<br>3、Java中，线程作为最小的调度单位，进程做为资源分配的最小单位，在Windows中进程是不活动的，只是作为线程的容器</p>
+<h2 id="进程和线程的对比"><a href="#进程和线程的对比" class="headerlink" title="进程和线程的对比:"></a>进程和线程的对比:</h2><p>1、进程基本上是互相独立的，而线程存在于进程内，是进程的一个子集<br>2、进程拥有共享的资源，如内存空间等，供其内部的线程共享<br>3、进程间通信比较复杂：</p>
+<pre><code>1、同一台计算机的进程通信称为IPC
+2、不同计算机之间的进程通信，需要通过网络，并遵循共同的协议，如HTTP协议</code></pre><p>4、线程通信相对简单，因为它们共享进程内的内存，多个线程能访问同一个共享变量<br>5、线程更轻量，线程上下文切换成本一般上要比进程上下文切换低</p>
+<h2 id="并发和并行"><a href="#并发和并行" class="headerlink" title="并发和并行"></a>并发和并行</h2><p>单核CPU下，线程实际上还是串行执行的，操作系统中有一个组件叫做任务调度器，将CPU的时间片分给不同的线程使用，只是由于<br>CPU在线程间的切换非常快，微观串行、宏观并行，一般将这种线程轮流使用CPU的做法称为并发，concurrent</p>
+<p>多核CPU下，每个核（core）都可以调度运行线程，这个时候线程可以是并行的</p>
+<p>并发是指同一时间应对多件事情的能力<br>并行是指同一时间动手做多件事情的能力</p>
+<p>从方法调用的角度，如果需要等待结果返回，才能继续运行就是同步，不需要等待结果返回就是异步，多线程可以让方法执行变为异步</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论:"></a>结论:</h3><p>1、单核CPU下，多线程不能实际提高程序运行效率，只是为了能够在不同的任务之间切换，不同线程轮流使用CPU，不至于一个线程总占用CPU<br>2、</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      
 
-        <div class="article-info info-on-right">
-          
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -185,364 +219,105 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/08/04/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/17/%E6%B7%B1%E5%85%A5%E8%AF%A6%E7%BB%86%E8%AE%B2%E8%A7%A3JVM%E5%8E%9F%E7%90%86/" class="archive-article-date">
-  	<time datetime="2020-06-17T15:42:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-17</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/06/17/%E6%B7%B1%E5%85%A5%E8%AF%A6%E7%BB%86%E8%AE%B2%E8%A7%A3JVM%E5%8E%9F%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深入详细讲解JVM原理</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/17/%E6%B7%B1%E5%85%A5%E8%AF%A6%E7%BB%86%E8%AE%B2%E8%A7%A3JVM%E5%8E%9F%E7%90%86/">深入详细讲解JVM原理</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/16/%E6%B3%A8%E8%A7%A3%E7%9A%84%E8%A7%A3%E6%9E%90/" class="archive-article-date">
-  	<time datetime="2020-06-16T07:08:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/16/%E6%B3%A8%E8%A7%A3%E7%9A%84%E8%A7%A3%E6%9E%90/">注解的解析</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/02/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2020-06-02T05:46:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/02/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3/">代理模式详解</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/29/%E5%8F%8D%E5%B0%84%E7%9A%84%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2020-05-29T08:02:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/29/%E5%8F%8D%E5%B0%84%E7%9A%84%E6%80%BB%E7%BB%93/">反射的总结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/28/%E8%B0%88%E8%B0%88nio%E5%92%8Cbio%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
-  	<time datetime="2020-05-28T07:46:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/28/%E8%B0%88%E8%B0%88nio%E5%92%8Cbio%E7%9A%84%E5%8C%BA%E5%88%AB/">谈谈nio和bio的区别</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/27/Java%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2020-05-27T09:20:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/27/Java%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/">Java基础概念总结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/25/Map%E9%9B%86%E5%90%88/" class="archive-article-date">
-  	<time datetime="2020-05-25T15:04:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/25/Map%E9%9B%86%E5%90%88/">HashMap集合</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/25/%E6%B5%85%E8%B0%88Set%E9%9B%86%E5%90%88/" class="archive-article-date">
-  	<time datetime="2020-05-25T07:15:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/25/%E6%B5%85%E8%B0%88Set%E9%9B%86%E5%90%88/">浅谈Set集合</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/23/%E6%B5%85%E8%B0%88List%E9%9B%86%E5%90%88/" class="archive-article-date">
-  	<time datetime="2020-05-23T08:28:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/23/%E6%B5%85%E8%B0%88List%E9%9B%86%E5%90%88/">浅谈List集合</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -566,8 +341,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

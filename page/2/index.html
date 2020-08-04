@@ -146,6 +146,87 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-浅谈String、StringBuffer、StringBuilder" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/">浅谈String、StringBuffer、StringBuilder</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/" class="archive-article-date">
+  	<time datetime="2020-05-22T07:29:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="String类"><a href="#String类" class="headerlink" title="String类"></a><strong>String类</strong></h1><h2 id="1、String类的特性"><a href="#1、String类的特性" class="headerlink" title="1、String类的特性"></a><strong>1、String类的特性</strong></h2><ul>
+<li>String类是final修饰的。不可以被继承,对象都是只读的，所以多线程并发访问也不会有任何问题，由于不可变，用来存储数据也是极为的安全。</li>
+<li>String类的底层是基于char数组的</li>
+</ul>
+<h3 id="1-1、String字符串的创建"><a href="#1-1、String字符串的创建" class="headerlink" title="1.1、String字符串的创建"></a><strong>1.1、String字符串的创建</strong></h3><p>String字符串的创建方式通常有两种方式，一种是直接赋值，String str = “a”;一种是通过创建对象赋值，String str = new String(“a”)。这两种看似都是创建了一个字符串对象，但在内存中确是天差地别。再了解这个之间，首先我们需要了解字符串常量池。</p>
+<p>String类是我们平常项目中使用频率最高的一种对象类型，jvm为了提高性能和减少内存开销，避免字符串的重复创建，其维护了一块特殊的内存空间，即字符串池，当需要使用字符串时，先去字符串池中查看该字符串是否已经存在，如果存在，则可以直接使用，如果不存在，初始化，并将该字符串放入字符串常量池中。</p>
+        
+          <a class="article-more-a" href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

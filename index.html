@@ -146,6 +146,89 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-多线程的概念" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/04/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5/">多线程的概念</a>
+    </h1>
+  
+
+        
+        <a href="/2020/08/04/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5/" class="archive-article-date">
+  	<time datetime="2020-08-04T06:48:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="进程："><a href="#进程：" class="headerlink" title="进程："></a>进程：</h2><p>1、程序由指令和数据组成，但这些指令要运行，数据要读写，就必须将指令加载至CPU，数据加载进内存。在指令运行过程中还需要用到磁盘、网络等设备。进程就是用来加载指令、管理内存、管理IO的<br>2、当一个程序被运行，从磁盘加载这个程序的代码进内存，这时就开启了一个进程<br>3、进程就可以视为程序的一个实例，大部分程序可以同时运行多个实例进程（例如笔记本、画图、浏览器等），也有的程序只能只能开启一个实例进程（例如网易云、360安全卫士）</p>
+<h2 id="线程："><a href="#线程：" class="headerlink" title="线程："></a>线程：</h2><p>1、一个进程之内可以为一到多个线程<br>2、一个线程就是一个指令流，将指令流中的一条条指令以一定的顺序交给CPU执行<br>3、Java中，线程作为最小的调度单位，进程做为资源分配的最小单位，在Windows中进程是不活动的，只是作为线程的容器</p>
+<h2 id="进程和线程的对比"><a href="#进程和线程的对比" class="headerlink" title="进程和线程的对比:"></a>进程和线程的对比:</h2><p>1、进程基本上是互相独立的，而线程存在于进程内，是进程的一个子集<br>2、进程拥有共享的资源，如内存空间等，供其内部的线程共享<br>3、进程间通信比较复杂：</p>
+<pre><code>1、同一台计算机的进程通信称为IPC
+2、不同计算机之间的进程通信，需要通过网络，并遵循共同的协议，如HTTP协议</code></pre><p>4、线程通信相对简单，因为它们共享进程内的内存，多个线程能访问同一个共享变量<br>5、线程更轻量，线程上下文切换成本一般上要比进程上下文切换低</p>
+<h2 id="并发和并行"><a href="#并发和并行" class="headerlink" title="并发和并行"></a>并发和并行</h2><p>单核CPU下，线程实际上还是串行执行的，操作系统中有一个组件叫做任务调度器，将CPU的时间片分给不同的线程使用，只是由于<br>CPU在线程间的切换非常快，微观串行、宏观并行，一般将这种线程轮流使用CPU的做法称为并发，concurrent</p>
+<p>多核CPU下，每个核（core）都可以调度运行线程，这个时候线程可以是并行的</p>
+<p>并发是指同一时间应对多件事情的能力<br>并行是指同一时间动手做多件事情的能力</p>
+<p>从方法调用的角度，如果需要等待结果返回，才能继续运行就是同步，不需要等待结果返回就是异步，多线程可以让方法执行变为异步</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论:"></a>结论:</h3><p>1、单核CPU下，多线程不能实际提高程序运行效率，只是为了能够在不同的任务之间切换，不同线程轮流使用CPU，不至于一个线程总占用CPU<br>2、</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/04/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-深入详细讲解JVM原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -841,87 +924,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/05/23/%E6%B5%85%E8%B0%88List%E9%9B%86%E5%90%88/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-浅谈String、StringBuffer、StringBuilder" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/">浅谈String、StringBuffer、StringBuilder</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/" class="archive-article-date">
-  	<time datetime="2020-05-22T07:29:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="String类"><a href="#String类" class="headerlink" title="String类"></a><strong>String类</strong></h1><h2 id="1、String类的特性"><a href="#1、String类的特性" class="headerlink" title="1、String类的特性"></a><strong>1、String类的特性</strong></h2><ul>
-<li>String类是final修饰的。不可以被继承,对象都是只读的，所以多线程并发访问也不会有任何问题，由于不可变，用来存储数据也是极为的安全。</li>
-<li>String类的底层是基于char数组的</li>
-</ul>
-<h3 id="1-1、String字符串的创建"><a href="#1-1、String字符串的创建" class="headerlink" title="1.1、String字符串的创建"></a><strong>1.1、String字符串的创建</strong></h3><p>String字符串的创建方式通常有两种方式，一种是直接赋值，String str = “a”;一种是通过创建对象赋值，String str = new String(“a”)。这两种看似都是创建了一个字符串对象，但在内存中确是天差地别。再了解这个之间，首先我们需要了解字符串常量池。</p>
-<p>String类是我们平常项目中使用频率最高的一种对象类型，jvm为了提高性能和减少内存开销，避免字符串的重复创建，其维护了一块特殊的内存空间，即字符串池，当需要使用字符串时，先去字符串池中查看该字符串是否已经存在，如果存在，则可以直接使用，如果不存在，初始化，并将该字符串放入字符串常量池中。</p>
-        
-          <a class="article-more-a" href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/22/%E6%B5%85%E8%B0%88String%E3%80%81StringBuffer%E3%80%81StringBuilder/">展开全文 >></a>
         </p>
       
 
